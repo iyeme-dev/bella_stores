@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} 
+Product 
+{% endblock %} 
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mt-5">
+        <div class="col-10 mx-auto col-md-6 my-3">
+            <img src="{% static 'image/product-2.png' %}" alt="">
+        </div>
+        <div class="col-10 mx-auto col-md-6 my-3">
+            <div>
+                <h1 class="product_title">HTC One</h1>
+                <p>$300</p>
+                <p class="product_description">Product Description</p>
+                <p class="text-justify product_text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non
+                    turpis nec neque tincidunt tristique. Vivamus ac lacus vel justo
+                    volutpat tincidunt. Integer fermentum, nulla a posuere dictum, lectus
+                    sapien luctus nisl, sed dignissim libero sapien non purus. Praesent
+                    vel nulla sed erat facilisis dignissim at at lorem. Curabitur nec orci
+                    ut arcu suscipit scelerisque sed nec justo. Pellentesque habitant
+                    morbi tristique senectus et netus et malesuada fames ac turpis
+                    egestas. Morbi interdum, augue in fermentum commodo, elit nunc pretium
+                    arcu, nec bibendum est mauris non magna. Nam euismod, nunc non
+                    facilisis vulputate, justo nisi facilisis turpis, at porta nisl erat
+                    vitae odio. Donec at arcu et metus suscipit facilisis.
+                </p>
+                <p class="text-justify product_text"><b>Out of Stock</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
