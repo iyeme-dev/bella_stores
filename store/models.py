@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Avg
 
 
 class Category(models.Model):
@@ -8,14 +9,16 @@ class Category(models.Model):
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='category', blank=True)
 
+
     class Meta:
         ordering = ('name',)
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
+
     def __str__(self):
         return self.name
-    
+   
 class Product(models.Model):
     name = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(max_length=250, unique=True)
@@ -28,15 +31,38 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-
     class Meta:
         ordering = ('name',)
         verbose_name = 'product'
         verbose_name_plural = 'products'
 
-
     def __str__(self):
         return self.name
    
+class Review(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="reviews"
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="reviews"
+    )
+    rating = models.PositiveSmallIntegerField(
+        choices=[(i, i) for i in range(1, 6)]
+    )
+    comment = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["-created"]
+        unique_together = ("product", "user")
 
+    def __str__(self):
+        return f"{self.rating}★ - {self.product.name} by {self.user.username}"
+   
+    def average_rating(self):
+        return self.reviews.aggregate(Avg("rating"))["rating__avg"]
