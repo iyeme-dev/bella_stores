@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product, Cart, CartItem
+from django.core.exceptions import ObjectDoesNotExist
 
 def home(request, category_slug=None):
     category_page = None
@@ -23,7 +24,6 @@ def _cart_id(request):
     if not cart:
         cart = request.session.create()
     return cart
-
 
 def add_cart(request, product_id):
     product = Product.objects.get(id=product_id)
@@ -56,6 +56,12 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
             counter += cart_item.quantity
     except ObjectDoesNotExist:
         pass
+
+    return render(
+    request,
+    "cart.html",
+    dict(cart_items=cart_items, total=total, counter=counter))
+
 
 
 
