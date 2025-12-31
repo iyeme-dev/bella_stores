@@ -4,26 +4,26 @@
         data-target="#nav" name="button"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse justify-content-between" id="nav">
         <ul class="navbar-nav">
-            <li class="nav-item dropdown"><a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle" href="" data-toggle="dropdown">Categories</a>
+            <li class="nav-item dropdown"><a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle"
+                href="" data-toggle="dropdown">Categories</a>
                 <div class="dropdown-menu">
-
-                    <!-- All Products -->
                     <a class="dropdown-item" href="{% url 'home' %}">All Products</a>
-                    <div class="dropdown-divider"></div>
-
                     {% for category in links %}
                     <a class="dropdown-item" href="{{category.get_url}}">{{category.name}}</a>
-                    {% endfor %}  
-                   <a class="dropdown-item" href="">Category 1</a>
-                   <a class="dropdown-item" href="">Category 2</a>
-                   <a class="dropdown-item" href="">Category 3</a>
-                   <a class="dropdown-item" href="">Category 4</a>
-                   <a class="dropdown-item" href="">Category 5</a>
+                    {% endfor %}
+
                 </div>
             </li>
 
             <li class="nav-item"><a class="nav-link text-light text-uppercase font-weight-bold px-3" href="">Contact</a></li>
-            <li class="nav-item"><a class="nav-link text-light text-uppercase font-weight-bold px-3" href="">About</a></li>
+            <li class="nav-item"><a class="nav-link text-light text-uppercase font-weight-bold px-3" href="">Contact</a></li>
+            {% if item_count > 0 %}
+            <li class="nav-item">
+                <a class="nav-link text-light text-uppercase font-weight-bold px-3" href="{% url 'cart_detail' %}">
+                    <i class="fas fa-shopping-cart"></i>({{item_count}})
+                </a>
+                {% endif %}
+            </li>
         </ul>
 
         <form class="form-inline mi-3">
