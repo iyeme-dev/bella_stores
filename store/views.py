@@ -67,6 +67,16 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
         try:
             token = request.POST['stripeToken']
             email = request.POST['stripeEmail']
+            billingName = request.POST['stripeBillingName']
+            billingAddress1 = request.POST['stripeBillingAddressLine1']
+            billingCity = request.POST['stripeBillingAddressCity']
+            billingPostcode = request.POST['stripeBillingAddressZip']
+            billingCountry = request.POST['stripeBillingAddressCountryCode']
+            shippingName = request.POST['stripeShippingName']
+            shippingAddress1 = request.POST['stripeShippingAddressLine1']
+            shippingCity = request.POST['stripeShippingAddressCity']
+            shippingPostcode = request.POST['stripeShippingAddressZip']
+            shippingCountry = request.POST['stripeShippingAddressCountryCode']
             customer = stripe.Customer.create(
                 email=email,
                 source=token
@@ -77,7 +87,7 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
                 description=description,
                 customer=customer.id
             )
-            
+
         except stripe.error.CardError as e:
             return False, e
 
