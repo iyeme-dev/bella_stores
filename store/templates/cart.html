@@ -92,11 +92,26 @@ Cart
         </tbody>
       </table>
       <div class="mx-auto">
-        <a href="{% url 'home' %}" style="text-decoration: none;">
+          <form class="" action="" method="POST">
+            {% csrf_token %}
+            <script src="https://checkout.stripe.com/checkout.js"
+            class="stripe-button"
+            data-key="{{ data_key }}"
+            data-amount="{{ stripe_total }}"
+            data-name="Z-Store"
+            data-description="{{ description }}"
+            data-locale="auto"
+            data-currency="usd"
+            data-shipping-address="true"
+            data-billing-address="true"
+            data-zip-code="true">
+            </script>
+          </form>
+          <a href="{% url 'home' %}" style="text-decoration: none;">
             <button type="button" class="btn btn-lg btn-block bg-dark text-white">
-                Continue Shopping
+              Continue Shopping
             </button>
-        </a>
+          </a>
 
       </div>
     </div>
