@@ -15,3 +15,13 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+
+class OrderItemAdmin(admin.TabularInline):
+    model = OrderItem
+    fieldsets = [
+        ('Product', {'fields': ['product'], }),
+        ('Quantity', {'fields': ['quantity'], }),
+        ('Price', {'fields': ['price'], }),
+    ]
+    readonly_fields = ['product', 'quantity', 'price']
+    
