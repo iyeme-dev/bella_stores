@@ -24,4 +24,14 @@ class OrderItemAdmin(admin.TabularInline):
         ('Price', {'fields': ['price'], }),
     ]
     readonly_fields = ['product', 'quantity', 'price']
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'billingName', 'emailAddress', 'created']
+    list_display_links = ('id', 'billingName')
+    search_fields = ['id', 'billingName', 'emailAddress']
+    readonly_fields = ['id', 'token', 'total', 'emailAddress', 'created',
+                       'billingName', 'billingAddress1', 'billingCity', 'billingPostcode',
+                       'billingCountry', 'shippingName', 'shippingAddress1', 'shippingCity',
+                       'shippingPostcode', 'shippingCountry']
     
