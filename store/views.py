@@ -114,7 +114,11 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
                     )
                     or_item.save()
 
-                    
+                    # reduce stock
+                    products = Product.objects.get(id=order_item.product.id)
+                    products.stock = int(order_item.product.stock - order_item.quantity)
+                    products.save()
+                    order_item.delete()
 
                 return redirect('thanks_page', order_details.id)
             except ObjectDoesNotExist:
