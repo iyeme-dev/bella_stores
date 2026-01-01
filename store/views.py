@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product, Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
+import stripe
+from django.conf import settings
 
 def home(request, category_slug=None):
     category_page = None
