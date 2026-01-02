@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group, User
 from .forms import SignUpForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 
 def home(request, category_slug=None):
     category_page = None
@@ -187,6 +187,10 @@ def signinView(request):
     else:
         form = AuthenticationForm()
     return render(request, 'signin.html', {'form': form})
+
+def signoutView(request):
+    logout(request)
+    return redirect('signin')
 
   
 
