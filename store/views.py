@@ -208,7 +208,7 @@ def viewOrder(request, order_id):
         email = str(request.user.email)
         order = Order.objects.get(id=order_id, emailAddress=email)
         order_items = OrderItem.objects.filter(order=order)
-   
+    return render(request, 'order_detail.html', {'order': order, 'order_items': order_items})
 
 
   
