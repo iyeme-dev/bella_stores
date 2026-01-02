@@ -43,6 +43,14 @@ Order Details
             <td>${{ item.sub_total }}</td>
           </tr>
         {% endfor %}
+        <tr>
+          <td class="text-right" colspan="3"><b>Total</b></td>
+          <td>${{ order.total }}</td>
+        </tr>
+        <tr>
+          <td class="text-right" colspan="3"><b>Total Paid</b></td>
+          <td>${{ order.total }}</td>
+        </tr>
         
       </table>
       <button class="btn btn-secondary" onclick="window.print();">
