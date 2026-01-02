@@ -216,6 +216,25 @@ def search(request):
     products = Product.objects.filter(name__contains=request.GET['title'])
     return render(request, 'home.html', {'products': products})
 
+def sendEmail(order_id):
+    transaction = Order.objects.get(id=order_id)
+    order_items = OrderItem.objects.filter(order=transaction)
+
+    try:
+        subject = "ZStore - New Order #{}".format(transaction.id)
+        to = ['{}'.format(transaction.emailAddress)]
+        from_email = "orders@zero2launch.com"
+        order_information = {
+            'transaction': transaction,
+            'order_items': order_items
+        }
+        message = get_template('email/email.html').render(order_information)
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
+    except IOError as e:
+        return e
+
 
   
 
