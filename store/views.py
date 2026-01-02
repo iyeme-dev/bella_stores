@@ -21,6 +21,9 @@ def home(request, category_slug=None):
         products_list = Product.objects.all().filter(available=True)
     return render(request, 'home.html', {'category': category_page, 'products': products_list})
 
+def about(request):
+    return render(request, "about.html")
+
 def productPage(request, category_slug, product_slug):
     try:
         product = Product.objects.get(category__slug=category_slug, slug=product_slug)
