@@ -130,3 +130,9 @@ STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'brownee@personalizedbackdrops.com'
+EMAIL_HOST_PASSWORD = '0ae6103a989020b6488966ed281bb36c-ac8ca900-f965245f'
+

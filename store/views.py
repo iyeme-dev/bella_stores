@@ -8,6 +8,8 @@ from .forms import SignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.template.loader import get_template
+from django.core.mail import EmailMessage
 
 def home(request, category_slug=None):
     category_page = None
