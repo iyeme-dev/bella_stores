@@ -123,7 +123,7 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
                     # print a message when the order is created
                     print('the order has been created')
 
-                return redirect(home)
+                return redirect('thanks_page', order_details.id)
             except ObjectDoesNotExist:
                 pass
 
