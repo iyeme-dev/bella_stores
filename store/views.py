@@ -59,6 +59,8 @@ def add_cart(request, product_id):
         )
         cart_item.save()
 
+    return redirect('cart_detail')
+
 def cart_detail(request, total=0, counter=0, cart_items=None):
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
@@ -259,7 +261,6 @@ def contact(request):
             msg.send()
 
             return render(request, 'contact_success.html')
-
 
     else:
         form = ContactForm()
