@@ -24,3 +24,15 @@ body {
     color: red;
     font-weight: bold;
 }
+
+.btn-warning {
+    background-color: #d69595; 
+    border-color: #d69595;
+    color: #fff;
+}
+
+.btn-warning:hover {
+    background-color: #ebcccc;
+    border-color: #ebcccc;
+}
+
