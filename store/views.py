@@ -226,9 +226,9 @@ def sendEmail(order_id):
     order_items = OrderItem.objects.filter(order=transaction)
 
     try:
-        subject = "ZStore - New Order #{}".format(transaction.id)
+        subject = "Bella Store - New Order #{}".format(transaction.id)
         to = ['{}'.format(transaction.emailAddress)]
-        from_email = "orders@zero2launch.com"
+        from_email = "orders@bellastores.com"
         order_information = {
             'transaction': transaction,
             'order_items': order_items
@@ -254,7 +254,7 @@ def contact(request):
             msg = EmailMessage(
                 subject,
                 message_format,
-                to=['contact@zero2launch.io'],
+                to=['contact@bellastores.com'],
                 from_email=from_email
             )
 
