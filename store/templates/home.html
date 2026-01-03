@@ -14,9 +14,13 @@ Home
     <div class="container">
       <div class="row">
         <div class="col-10 mx-auto my-2 text-center">
-          <h1 class="text-captitalze font-weight-bold">
-            All Products
-          </h1>
+          <h1 class="text-capitalize font-weight-bold">
+            {% if category %}
+              {{ category.name }}
+            {% else %}
+              All Products
+            {% endif %}
+         </h1>
         </div>
       </div>
     </div>
