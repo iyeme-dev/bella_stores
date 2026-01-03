@@ -93,13 +93,13 @@ Cart
           </tbody>
         </table>
         <div class="mx-auto">
-          <form class="" action="" method="POST">
+          <form class="" action="{% url 'cart_detail' %}" method="POST">
             {% csrf_token %}
             <script src="https://checkout.stripe.com/checkout.js"
             class="stripe-button"
             data-key="{{ data_key }}"
             data-amount="{{ stripe_total }}"
-            data-name="Z-Store"
+            data-name="Bella-Store"
             data-description="{{ description }}"
             data-locale="auto"
             data-currency="usd"
