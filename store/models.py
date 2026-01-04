@@ -68,7 +68,8 @@ class Review(models.Model):
         unique_together = ("product", "user")
 
     def __str__(self):
-        return f"{self.rating}★ - {self.product.name} by {self.user.username}"
+        return f"{self.rating} - {self.product.name} by {self.user.username}"
+
    
     def average_rating(self):
         return self.reviews.aggregate(Avg("rating"))["rating__avg"]
