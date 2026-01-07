@@ -28,7 +28,7 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = "DEVELOPMENT" in os.environ
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "bella-store-1b93e73638e2.herokuapp.com"]
 
