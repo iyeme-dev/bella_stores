@@ -226,8 +226,13 @@ def viewOrder(request, order_id):
     return render(request, 'order_detail.html', {'order': order, 'order_items': order_items})
 
 def search(request):
-    products = Product.objects.filter(name__contains=request.GET['title'])
-    return render(request, 'home.html', {'products': products})
+    query = request.GET.get("title", "").strip()
+    products = Product.objects.filter(available=True)
+
+    if query:
+        products = products.filter(name__icontains=query)
+
+    return render(request, "home.html", {"products": products, "query": query})
 
 def sendEmail(order_id):
     transaction = Order.objects.get(id=order_id)
