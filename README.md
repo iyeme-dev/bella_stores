@@ -305,15 +305,13 @@ Install the dependencies needed for production hosting, Postgres, environment va
 - `django-storages` + `boto3` (AWS S3 storage)
 - `crispy-forms` / `crispy-bootstrap4` (form styling)
 
-Then update `requirements.txt`:
-```bash
-pip freeze > requirements.txt
+Then update `requirements.txt`
 
 ---
 
-## 2) Configure Django for Production
+### 2) Configure Django for Production
 
-### 2.1 Environment Variables
+#### 2.1 Environment Variables
 
 Move sensitive values out of `settings.py` into environment variables (Heroku config vars):
 
@@ -324,19 +322,49 @@ Move sensitive values out of `settings.py` into environment variables (Heroku co
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
 - `USE_AWS=True` *(to switch on S3)*
-- *(Optional)* `DEVELOPMENT` *(only for local debug behaviour)*
 
 ---
 
-### 2.2 Update `settings.py`
+#### 2.2 Update `settings.py`
 
 **Key production changes:**
 
 - Use environment variables for secrets
-- Configure `ALLOWED_HOSTS` with your Heroku domain
+- Configure `ALLOWED_HOSTS` with Heroku domain
 - Configure database with `dj_database_url`
 - Configure static/media with S3 if `USE_AWS` is enabled
 - Ensure `storages` is included in `INSTALLED_APPS`
+
+---
+
+### 3) Create a Procfile (Gunicorn)
+
+In the project root, create a file named Procfile (no extension)
+This tells Heroku how to run the application.
+
+---
+
+### 4) Create and Configure the Heroku App
+#### 4.1 Create a Heroku app
+
+Using the Heroku dashboard (or CLI), create an app (example name: bella-store).
+
+#### 4.2 Add Heroku remote (Git)
+[heroku git:remote -a bella-store]
+Now you can deploy using Git push:
+[git push heroku main]
+
+---
+
+### 5) Add a Production Database (PostgreSQL)
+
+Heroku Postgres addon: [heroku addons:create heroku-postgresql:mini --app bella-store]
+
+---
+
+### 6) Run Migrations on Heroku
+
+After deploy, create your database tables:[heroku run --app bella-store -- python manage.py migrate]
 
 
 
