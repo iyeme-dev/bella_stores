@@ -287,9 +287,9 @@ Each section is logically structured to meet user needs while maintaining simpli
 
 Wireframe for Desktop and mobile screen sizes respectively
 
-## Full Deployment Process (Heroku)
+## Deployment Process (Heroku)
 
-This section outlines the complete process used to deploy the Bella Store Django website to Heroku, including production settings, database setup, static/media hosting with AWS S3, and final release steps.
+This section outlines the process used to deploy the Bella Store Django website to Heroku, including production settings, database setup, static/media hosting with AWS S3, and final release steps.
 
 ---
 
@@ -303,11 +303,49 @@ Install the dependencies needed for production hosting, Postgres, environment va
 - `psycopg2-binary` (PostgreSQL adapter)
 - `python-dotenv` (local `.env` loading)
 - `django-storages` + `boto3` (AWS S3 storage)
-- `django-widget-tweaks` (template helper, if used)
 - `crispy-forms` / `crispy-bootstrap4` (form styling)
 
 Then update `requirements.txt`:
 ```bash
 pip freeze > requirements.txt
+
+### 2) Configure Django for Production
+#### 2.1 Environment Variables
+
+Sensitive values are removed from settings.py and stored securely as environment variables (Heroku Config Vars):
+
+- SECRET_KEY
+
+- DATABASE_URL
+
+- STRIPE_SECRET_KEY
+
+- STRIPE_PUBLISHABLE_KEY
+
+- AWS_ACCESS_KEY_ID
+
+- AWS_SECRET_ACCESS_KEY
+
+- USE_AWS=True (to enable AWS S3 storage)
+
+- DEVELOPMENT (optional – used only for local debugging)
+
+This approach improves security and ensures credentials are not committed to version control.
+
+
+#### 2.2 Update settings.py
+
+Key production-related updates include:
+
+- Loading secrets from environment variables
+
+- Configuring ALLOWED_HOSTS with the Heroku domain
+
+- Using dj_database_url for database configuration
+
+- Enabling AWS S3 for static and media files when USE_AWS is set
+
+- Ensuring storages is included in INSTALLED_APPS
+
 
 
