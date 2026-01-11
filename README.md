@@ -366,6 +366,45 @@ Heroku Postgres addon: [heroku addons:create heroku-postgresql:mini --app bella-
 
 After deploy, create your database tables:[heroku run --app bella-store -- python manage.py migrate]
 
+---
+
+### 7) Configure Static & Media Files
+
+AWS S3 for static + media (used in this project)
+
+This project uses AWS S3 via django-storages and boto3.
+
+Steps:
+
+- Create an S3 bucket (e.g. amzn-s3-bella-store-bucket)
+- Set region (e.g. eu-north-1)
+- Create an IAM user with S3 permissions
+- Add credentials and USE_AWS=True as Heroku config vars
+- Add storages to INSTALLED_APPS
+- Create custom_storages.py to define: StaticStorage and MediaStorage
+- Update STATIC_URL and MEDIA_URL to point to S3.
+
+---
+
+### 8) Collect Static Files
+
+Heroku runs collectstatic during deployment automatically
+
+---
+
+### 10) Deploy the Application
+
+Once everything is configured:
+git add .
+git commit -m "Deploy Bella Store to Heroku"
+git push heroku main
+
+Heroku will:
+- Install dependencies
+- Run collectstatic
+- Start Gunicorn via the Procfile
+
+
 
 
 
