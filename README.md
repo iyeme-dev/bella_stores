@@ -309,43 +309,36 @@ Then update `requirements.txt`:
 ```bash
 pip freeze > requirements.txt
 
-### 2) Configure Django for Production
-#### 2.1 Environment Variables
+---
 
-Sensitive values are removed from settings.py and stored securely as environment variables (Heroku Config Vars):
+## 2) Configure Django for Production
 
-- SECRET_KEY
+### 2.1 Environment Variables
 
-- DATABASE_URL
+Move sensitive values out of `settings.py` into environment variables (Heroku config vars):
 
-- STRIPE_SECRET_KEY
+- `SECRET_KEY`
+- `DATABASE_URL`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_PUBLISHABLE_KEY`
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `USE_AWS=True` *(to switch on S3)*
+- *(Optional)* `DEVELOPMENT` *(only for local debug behaviour)*
 
-- STRIPE_PUBLISHABLE_KEY
+---
 
-- AWS_ACCESS_KEY_ID
+### 2.2 Update `settings.py`
 
-- AWS_SECRET_ACCESS_KEY
+**Key production changes:**
 
-- USE_AWS=True (to enable AWS S3 storage)
+- Use environment variables for secrets
+- Configure `ALLOWED_HOSTS` with your Heroku domain
+- Configure database with `dj_database_url`
+- Configure static/media with S3 if `USE_AWS` is enabled
+- Ensure `storages` is included in `INSTALLED_APPS`
 
-- DEVELOPMENT (optional – used only for local debugging)
 
-This approach improves security and ensures credentials are not committed to version control.
-
-
-#### 2.2 Update settings.py
-
-Key production-related updates include:
-
-- Loading secrets from environment variables
-
-- Configuring ALLOWED_HOSTS with the Heroku domain
-
-- Using dj_database_url for database configuration
-
-- Enabling AWS S3 for static and media files when USE_AWS is set
-
-- Ensuring storages is included in INSTALLED_APPS
 
 
 
