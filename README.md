@@ -404,6 +404,11 @@ Heroku will:
 - Run collectstatic
 - Start Gunicorn via the Procfile
 
+## Hosting
+The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
+Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
+
 
 
 
