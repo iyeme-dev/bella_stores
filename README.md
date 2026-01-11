@@ -283,4 +283,31 @@ Overall, the site layout follows a clear user journey:
 
 Each section is logically structured to meet user needs while maintaining simplicity, clarity, and usability throughout the shopping experience.
 
+## Wireframes 
+
+Wireframe for Desktop and mobile screen sizes respectively
+
+## Full Deployment Process (Heroku)
+
+This section outlines the complete process used to deploy the Bella Store Django website to Heroku, including production settings, database setup, static/media hosting with AWS S3, and final release steps.
+
+---
+
+### 1) Prepare the Project for Deployment
+
+#### 1.1 Add required packages
+Install the dependencies needed for production hosting, Postgres, environment variables, and S3 storage:
+
+- `gunicorn` (production WSGI server)
+- `dj-database-url` (parse `DATABASE_URL`)
+- `psycopg2-binary` (PostgreSQL adapter)
+- `python-dotenv` (local `.env` loading)
+- `django-storages` + `boto3` (AWS S3 storage)
+- `django-widget-tweaks` (template helper, if used)
+- `crispy-forms` / `crispy-bootstrap4` (form styling)
+
+Then update `requirements.txt`:
+```bash
+pip freeze > requirements.txt
+
 
