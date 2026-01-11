@@ -2,7 +2,7 @@
  
 Project by: Iyeme Salubi 
 
-[View live project](https://bella-store-1b93e73638e2.herokuapp.com/)/)
+[View live project](https://bella-store-1b93e73638e2.herokuapp.com/))
 
 Bella Store is a user-friendly e-commerce platform offering a collection of beautiful jewellery pieces, designed to deliver a seamless and engaging shopping experience. The website features a clean, structured layout powered by Bootstrap, with intuitive navigation that guides users through product categories, product detail pages, and secure checkout. Its main sections include a home page, product categories, user account management, managing a shopping cart, and completing a purchase with Stripe payment integration. Bella Store is designed to attract new customers, inspire confidence through thoughtful design, and provide a trustworthy and enjoyable online jewellery shopping experience.
 
@@ -139,3 +139,148 @@ Future enhancements could include user reviews and ratings, wishlist functionali
 ### Summary
 
 Bella Stores was developed to solve common online jewellery shopping challenges by offering a clean, secure, and intuitive e-commerce experience. Guided by user-centered design principles and real user stories, the project delivers clear product presentation, smooth navigation, and reliable checkout functionality. Overall, Bella Stores demonstrates how thoughtful design and robust backend implementation can significantly improve customer satisfaction and trust in online retail platforms.
+
+# Design
+
+The design of the Bella Store website prioritises clarity, usability, and visual appeal, ensuring a seamless experience across devices. A responsive grid layout and Bootstrap framework are used to maintain consistent alignment and spacing, enhancing readability and navigability. Navigation elements, such as the main menu and category dropdown, are positioned prominently to facilitate easy browsing and product discovery. High-resolution product images and clear typography engage the user visually while conveying essential information effectively. Functionality and aesthetics are balanced throughout the design; interactive elements such as buttons and links provide immediate feedback, while whitespace and structured sections reduce cognitive load. Overall, the site’s design fosters intuitive interaction, guiding users from initial exploration through to checkout with minimal friction.
+
+## Brand Colours
+
+Bella Store implements a cohesive and purposeful colour palette that communicates elegance and professionalism appropriate for an online jewellery retailer. The dominant colours are dark-toned backgrounds paired with light text, which establish strong contrast and visual hierarchy, making key elements such as navigation text and call-to-action buttons easily legible. Warm accent colours, especially in interactive elements such as the search button, draw user attention to important actions and reinforce clickability without overwhelming the interface. The consistent application of brand colours across the navbar, buttons, and footer enhances overall visual unity and supports brand recognition. These colour choices promote a sense of luxury and reliability, aligning with user expectations for a premium shopping experience while maintaining functional clarity.
+
+## Layout and Structure of the Website
+
+The Bella Store website follows a clear, logical layout designed to guide users smoothly through browsing, purchasing, and account management. Each section of the site directly supports the identified user stories by prioritising usability, clarity, and intuitive navigation.
+
+---
+
+### Navigation Bar and Global Layout
+
+The navigation bar is fixed at the top of every page and provides consistent access to the core sections of the site. It includes:
+- A **category dropdown menu**
+- Links to **Contact** and **About** pages
+- **Sign Up** and **Sign In** options
+- A **shopping cart icon** displaying the current item count
+- A **search bar** for quick product discovery
+
+This consistent structure ensures users can navigate the site easily from any page, supporting both new and returning shoppers.
+
+---
+
+### Product Categories and Filtering
+
+The homepage is structured around a **category-based browsing system**.  
+Users can filter products by selecting categories such as bracelets, earrings, necklaces, and watches from the dropdown menu.
+
+- Each category opens a dedicated product listing page
+- Only relevant products are displayed per category
+- The category name is clearly shown, helping users stay oriented
+
+This layout directly supports the user story:
+
+> *As a shopper, I want to filter products by category, so I can easily find what I’m interested in.*
+
+---
+
+### Product Listings and Product Detail Pages
+
+Products are displayed in a clean grid layout featuring:
+- High-quality product images
+- Clear product names and prices
+- A consistent visual structure across all listings
+
+Clicking a product opens a **dedicated product detail page**, which includes:
+- A larger product image
+- A detailed description
+- Price and stock availability
+- An **Add to Cart** button
+
+This structure supports confidence in purchasing and addresses the user story:
+
+> *As a buyer, I want to see clear product images and descriptions, so I can feel confident in the purchase.*
+
+---
+
+### Shopping Cart Page
+
+The cart page is divided into two clear sections:
+1. **Item Summary**
+   - Product image and name
+   - Quantity controls (increase, decrease, remove)
+   - Individual item subtotal
+2. **Order Summary**
+   - Total price
+   - Checkout button
+
+The cart dynamically updates quantities and totals as users add or remove items, supporting:
+
+> *As a user, I want the cart to update the total price and quantities dynamically.*
+
+---
+
+### Secure Checkout Process
+
+The checkout section is integrated directly into the cart page and uses **Stripe** for payment processing.  
+The structure includes:
+- Secure payment modal
+- Billing and shipping information fields
+- Clear display of the total amount before payment
+
+This ensures user confidence and data security, addressing:
+
+> *As a customer, I want to securely checkout, so my payment information stays safe.*
+
+---
+
+### Order Confirmation Page
+
+After a successful payment, users are redirected to a **Thank You / Order Confirmation page** which includes:
+- Order reference number
+- Confirmation message
+- Payment success feedback
+
+This provides reassurance and closure, fulfilling:
+
+> *As a buyer, I want a confirmation page after checkout, so I know my order was successful.*
+
+---
+
+### User Account Registration and Authentication
+
+The site includes dedicated pages for:
+- **User registration (Sign Up)**
+- **User login (Sign In)**
+
+Once authenticated, users can:
+- View order history
+- Access individual order details
+- Make repeat purchases more easily
+
+This supports both new and returning users, addressing:
+
+> *As a new user, I want to create an account…*  
+> *As a returning shopper, I want to sign in…*
+
+---
+
+### Order History and Order Detail Pages
+
+Authenticated users can access an **Order History page** listing previous purchases.  
+Each order links to a detailed view showing:
+- Purchased items
+- Quantities and prices
+- Billing and shipping information
+
+This enables users to track and review past orders efficiently.
+
+---
+
+### Summary
+
+Overall, the site layout follows a clear user journey:
+
+**Browse → Filter → View → Add to Cart → Checkout → Confirm → Track Orders**
+
+Each section is logically structured to meet user needs while maintaining simplicity, clarity, and usability throughout the shopping experience.
+
+
