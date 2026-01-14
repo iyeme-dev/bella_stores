@@ -293,12 +293,125 @@ The core workflow is:
 
 Category → Product → Cart/CartItem → Order/OrderItem
 
-## Models and Relationships
-### Category
-Stores product groupings (e.g., Phones, Laptops).
-#### Relationship
-- One Category has many Products (1 → many)
+# Models and Relationships
 ---
+## Category
+Stores product groupings (e.g., Phones, Laptops).
+### Relationship
+- One **Category** has many **Products** (1 → many)
+
+---
+
+## Product
+
+Stores items for sale.
+
+### Key Fields
+- `category` (FK to Category)  
+- `price`  
+- `stock`  
+- `available`  
+- `image`  
+- `created`  
+- `updated`  
+
+### Relationships
+- Belongs to one **Category** (many → 1)  
+- Can appear in many carts via **CartItem** (1 → many)  
+- Can appear in many orders via **OrderItem** (1 → many)
+
+---
+
+## Cart
+
+Represents a shopping cart session (guest or logged-in).
+
+### Key Fields
+- `cart_id` (session key)
+
+### Relationships
+- One **Cart** contains many **CartItems** (1 → many)
+
+---
+
+## CartItem
+
+Junction table between **Cart** and **Product**.
+
+### Why it exists
+A cart can contain many products, and a product can be in many carts.  
+**CartItem** stores the relationship plus extra data like quantity.
+
+### Key Fields
+- `cart` (FK to Cart)  
+- `product` (FK to Product)  
+- `quantity`  
+- `active`  
+
+### Relationships
+- Many **CartItems** belong to one **Cart** (many → 1)  
+- Many **CartItems** reference one **Product** (many → 1)
+
+---
+
+## Order
+
+Stores checkout and payment/billing/shipping information.
+
+### Key Fields
+- Billing fields  
+- Shipping fields  
+- `total`  
+- `token`  
+- `emailAddress`  
+- `created`  
+
+### Relationships
+- One **Order** has many **OrderItems** (1 → many)  
+- Optionally linked to a Django **User** (if used in your project)
+
+---
+
+## OrderItem
+
+Stores purchased line items for an order.
+
+### Why it exists
+This preserves what was purchased at the time of checkout.  
+Quantity and price are stored per line item.
+
+### Key Fields
+- `order` (FK to Order)  
+- `product` (string snapshot)  
+- `quantity`  
+- `price`  
+
+### Relationship
+- Many **OrderItems** belong to one **Order** (many → 1)
+
+---
+
+## Schema Design Rationale
+
+This schema is normalized and avoids duplication:
+
+- Products are stored once in **Product**
+- Many-to-many behavior is handled using junction models:
+  - **CartItem** (Cart ↔ Product) stores quantity and active status
+  - **OrderItem** (Order ↔ purchased items) stores checkout snapshots
+
+The structure supports real e-commerce behavior:
+- Browsing by category  
+- Adding items to cart  
+- Checkout flow  
+- Viewing order history  
+
+---
+
+> If you paste your actual `store/models.py` (Cart, CartItem, Order, OrderItem),  
+> I can rewrite this README section to match your exact fields **100%**  
+> (names, types, and relationships).
+
 
 # Deployment
 ## Deployment Process (Heroku)
@@ -421,6 +534,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
