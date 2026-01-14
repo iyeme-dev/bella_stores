@@ -325,15 +325,6 @@ The Category table is used to organise products into logical groupings to improv
 Stores items for sale.
 The Product table stores detailed information about all items available for sale on the site. This includes the product name, description, price, image reference, and availability status. Each product is linked to a category, enabling structured browsing. The table also tracks when products are created and whether they are active, allowing administrators to manage listings without permanently deleting data.
 
-### Key Fields
-- `category` (FK to Category)  
-- `price`  
-- `stock`  
-- `available`  
-- `image`  
-- `created`  
-- `updated`  
-
 ### Relationships
 - Belongs to one **Category** (many → 1)  
 - Can appear in many carts via **CartItem** (1 → many)  
@@ -355,9 +346,6 @@ The Product table stores detailed information about all items available for sale
 Represents a shopping cart session (guest or logged-in).
 The Cart table represents a user’s shopping cart and temporarily stores selected products before checkout. A cart may be associated with a registered user or, if applicable, identified by a session key for guest users. Timestamps are used to track when the cart is created and updated, supporting cart persistence and allowing users to return to previously selected items.
 
-### Key Fields
-- `cart_id` (session key)
-
 ### Relationships
 - One **Cart** contains many **CartItems** (1 → many)
 
@@ -370,16 +358,6 @@ The Cart table represents a user’s shopping cart and temporarily stores select
 
 ## CART_ITEM
 The Cart Item table acts as a junction between the cart and product tables, storing individual items added to a cart. It records the quantity of each product and captures the product price at the time it was added. This structure allows a cart to contain multiple products while preserving pricing accuracy, even if product prices change later.
-
-### Why it exists
-A cart can contain many products, and a product can be in many carts.  
-**CartItem** stores the relationship plus extra data like quantity.
-
-### Key Fields
-- `cart` (FK to Cart)  
-- `product` (FK to Product)  
-- `quantity`  
-- `active`  
 
 ### Relationships
 - Many **CartItems** belong to one **Cart** (many → 1)  
@@ -395,14 +373,6 @@ A cart can contain many products, and a product can be in many carts.
 ## ORDER
 Stores checkout and payment/billing/shipping information.
 The Order table stores completed checkout transactions and represents a confirmed purchase made by a user. It includes a unique order number, order status, cost breakdown (subtotal, shipping, and total), and timestamps for creation and payment. Each order is linked to a user, enabling order history functionality and allowing customers to review past purchases.
-
-### Key Fields
-- Billing fields  
-- Shipping fields  
-- `total`  
-- `token`  
-- `emailAddress`  
-- `created`  
 
 ### Relationships
 - One **Order** has many **OrderItems** (1 → many)  
@@ -421,12 +391,6 @@ The Order table stores completed checkout transactions and represents a confirme
 
 ## ORDER_ITEM
 The Order Item table records the individual products associated with an order. It stores the quantity, unit price at checkout, and total cost per line item. This table ensures accurate historical records by preserving pricing details even if product information changes in the future. It also supports detailed order summaries and invoicing.
-
-### Key Fields
-- `order` (FK to Order)  
-- `product` (string snapshot)  
-- `quantity`  
-- `price`  
 
 ### Relationship
 - Many **OrderItems** belong to one **Order** (many → 1)
@@ -461,19 +425,7 @@ This schema is avoids duplication:
   - **CartItem** (Cart ↔ Product) stores quantity and active status
   - **OrderItem** (Order ↔ purchased items) stores checkout snapshots
 
-The structure supports real e-commerce behavior:
-- Browsing by category  
-- Adding items to cart  
-- Checkout flow  
-- Viewing order history  
-
 ---
-
-> If you paste your actual `store/models.py` (Cart, CartItem, Order, OrderItem),  
-> I can rewrite this README section to match your exact fields **100%**  
-> (names, types, and relationships).
->
-
 
 # Deployment
 ## Deployment Process (Heroku)
@@ -596,6 +548,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
