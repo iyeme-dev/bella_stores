@@ -2,7 +2,7 @@
  
 Project by: Iyeme Salubi 
 
-[View live project](https://bella-store-1b93e73638e2.herokuapp.com/))
+[View live project](https://bella-store-1b93e73638e2.herokuapp.com/)
 
 Bella Store is a user-friendly e-commerce platform offering a collection of beautiful jewellery pieces, designed to deliver a seamless and engaging shopping experience. The website features a clean, structured layout powered by Bootstrap, with intuitive navigation that guides users through product categories, product detail pages, and secure checkout. Its main sections include a home page, product categories, user account management, managing a shopping cart, and completing a purchase with Stripe payment integration. Bella Store is designed to attract new customers, inspire confidence through thoughtful design, and provide a trustworthy and enjoyable online jewellery shopping experience.
 
@@ -23,15 +23,16 @@ Bella Store is a user-friendly e-commerce platform offering a collection of beau
    - [Brand Colours](#brand-colours)  
    - [Layout & Structure](#layout-and-structure)  
    - [Wireframes](#wireframes)  
-5. [Deployment](#deployment)
-6. [Testing](#testing)
+5. [Database Schema](#database-schema)
+6. [Deployment](#deployment)
+7. [Testing](#testing)
    - [Browser Testing](#browser-testing)  
    - [Code Validation](#code-validation)  
    - [Lighthouse Test](#lighthouse-test)
-7. [Testing Errors and Improvements](#testing-errors-and-improvements)
-8. [Technologies Used](#technologies-used)
-9. [Credit and Reference](#credit-and-reference)
-10. [Author](#author)
+8. [Testing Errors and Improvements](#testing-errors-and-improvements)
+9. [Technologies Used](#technologies-used)
+10. [Credit and Reference](#credit-and-reference)
+11. [Author](#author)
 
 # Project Overview
 Bella Stores is a responsive, user-centric online jewellery shop designed to make browsing and purchasing elegant accessories simple and enjoyable. The website organizes products into clear categories and provides detailed product pages with high-quality images, helping users quickly find what they want. It features an intuitive shopping cart and secure Stripe payment integration, so buyers can confidently complete purchases, view order confirmations, and manage their accounts. Built with a clean, visually appealing layout and seamless navigation, Bella Stores addresses common online shopping frustrations—like difficulty finding products, confusing checkout, and unclear site structure—while catering to fashion-aware buyers seeking a trustworthy and engaging e-commerce experience.
@@ -572,6 +573,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
