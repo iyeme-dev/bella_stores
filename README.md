@@ -294,17 +294,36 @@ The core workflow is:
 Category → Product → Cart/CartItem → Order/OrderItem
 
 # Models and Relationships
----
-## Category
+
+## USER
+The User table stores all registered customer and administrator accounts for the site. It contains authentication and identification details such as username, email address, and encrypted password, as well as profile information including first and last names. Additional boolean fields determine whether a user account is active or has staff permissions. This table is central to the application, as it links to orders, carts, and contact messages, allowing users to place orders, manage their shopping activity, and interact with the site.
+| Key | Name | Type | Extra Info |
+| --- | ---- | ---- | ---------- |
+| PK | id | AutoField | primary_key=True |
+|  | username | CharField | unique=True |
+|  | first_name | CharField |  |
+|  | last_name | CharField |  |
+|  | email | EmailField | unique=True |
+|  | password | CharField | hashed |
+|  | date_joined | DateTimeField | auto_now_add=True |
+|  | is_active | BooleanField | default=True |
+|  | is_staff | BooleanField | default=False |
+
+## CATEGORY
 Stores product groupings (e.g., Necklace, Bracelets).
+The Category table is used to organise products into logical groupings to improve navigation and browsing. Each category has a name and a unique slug that is used in URLs, making the site more SEO-friendly and readable. Categories allow products to be filtered and displayed by type, helping users quickly find relevant items and supporting a scalable product catalogue structure.
 ### Relationship
 - One **Category** has many **Products** (1 → many)
 
----
+| Key | Name       | Type          | Extra Info        |
+| --- | ---------- | ------------- | ----------------- |
+|     | name       | CharField     |                   |
+|     | slug       | SlugField     | unique=True       |
+|     | created_on | DateTimeField | auto_now_add=True |
 
-## Product
-
+## PRODUCT
 Stores items for sale.
+The Product table stores detailed information about all items available for sale on the site. This includes the product name, description, price, image reference, and availability status. Each product is linked to a category, enabling structured browsing. The table also tracks when products are created and whether they are active, allowing administrators to manage listings without permanently deleting data.
 
 ### Key Fields
 - `category` (FK to Category)  
@@ -320,11 +339,21 @@ Stores items for sale.
 - Can appear in many carts via **CartItem** (1 → many)  
 - Can appear in many orders via **OrderItem** (1 → many)
 
----
 
-## Cart
+| Key        | Name        | Type                  | Extra Info        |
+| ---------- | ----------- | --------------------- | ----------------- |
+| ForeignKey | category    | Category model        | on_delete=CASCADE |
+|            | name        | CharField             |                   |
+|            | slug        | SlugField             | unique=True       |
+|            | description | TextField             |                   |
+|            | price       | DecimalField          |                   |
+|            | image       | ImageField / URLField |                   |
+|            | is_active   | BooleanField          | default=True      |
+|            | created_on  | DateTimeField         | auto_now_add=True |
 
+## CART
 Represents a shopping cart session (guest or logged-in).
+The Cart table represents a user’s shopping cart and temporarily stores selected products before checkout. A cart may be associated with a registered user or, if applicable, identified by a session key for guest users. Timestamps are used to track when the cart is created and updated, supporting cart persistence and allowing users to return to previously selected items.
 
 ### Key Fields
 - `cart_id` (session key)
@@ -332,11 +361,15 @@ Represents a shopping cart session (guest or logged-in).
 ### Relationships
 - One **Cart** contains many **CartItems** (1 → many)
 
----
+| Key        | Name        | Type          | Extra Info                    |
+| ---------- | ----------- | ------------- | ----------------------------- |
+| ForeignKey | user        | User model    | null=True, on_delete=SET_NULL |
+|            | session_key | CharField     | null=True                     |
+|            | created_on  | DateTimeField | auto_now_add=True             |
+|            | updated_on  | DateTimeField | auto_now=True                 |
 
-## CartItem
-
-Junction table between **Cart** and **Product**.
+## CART_ITEM
+The Cart Item table acts as a junction between the cart and product tables, storing individual items added to a cart. It records the quantity of each product and captures the product price at the time it was added. This structure allows a cart to contain multiple products while preserving pricing accuracy, even if product prices change later.
 
 ### Why it exists
 A cart can contain many products, and a product can be in many carts.  
@@ -352,11 +385,16 @@ A cart can contain many products, and a product can be in many carts.
 - Many **CartItems** belong to one **Cart** (many → 1)  
 - Many **CartItems** reference one **Product** (many → 1)
 
----
+| Key        | Name                | Type                 | Extra Info        |
+| ---------- | ------------------- | -------------------- | ----------------- |
+| ForeignKey | cart                | Cart model           | on_delete=CASCADE |
+| ForeignKey | product             | Product model        | on_delete=CASCADE |
+|            | quantity            | PositiveIntegerField | default=1         |
+|            | unit_price_snapshot | DecimalField         | price at add time |
 
-## Order
-
+## ORDER
 Stores checkout and payment/billing/shipping information.
+The Order table stores completed checkout transactions and represents a confirmed purchase made by a user. It includes a unique order number, order status, cost breakdown (subtotal, shipping, and total), and timestamps for creation and payment. Each order is linked to a user, enabling order history functionality and allowing customers to review past purchases.
 
 ### Key Fields
 - Billing fields  
@@ -369,16 +407,20 @@ Stores checkout and payment/billing/shipping information.
 ### Relationships
 - One **Order** has many **OrderItems** (1 → many)  
 - Optionally linked to a Django **User** (if used in your project)
+- 
+| Key        | Name          | Type          | Extra Info               |
+| ---------- | ------------- | ------------- | ------------------------ |
+| ForeignKey | user          | User model    | on_delete=CASCADE        |
+|            | order_number  | CharField     | unique=True              |
+|            | status        | CharField     | PENDING / PAID / SHIPPED |
+|            | subtotal      | DecimalField  |                          |
+|            | shipping_cost | DecimalField  |                          |
+|            | total         | DecimalField  |                          |
+|            | created_on    | DateTimeField | auto_now_add=True        |
+|            | paid_on       | DateTimeField | null=True                |
 
----
-
-## OrderItem
-
-Stores purchased line items for an order.
-
-### Why it exists
-This preserves what was purchased at the time of checkout.  
-Quantity and price are stored per line item.
+## ORDER_ITEM
+The Order Item table records the individual products associated with an order. It stores the quantity, unit price at checkout, and total cost per line item. This table ensures accurate historical records by preserving pricing details even if product information changes in the future. It also supports detailed order summaries and invoicing.
 
 ### Key Fields
 - `order` (FK to Order)  
@@ -388,12 +430,31 @@ Quantity and price are stored per line item.
 
 ### Relationship
 - Many **OrderItems** belong to one **Order** (many → 1)
+  
+| Key        | Name                | Type                 | Extra Info        |
+| ---------- | ------------------- | -------------------- | ----------------- |
+| ForeignKey | order               | Order model          | on_delete=CASCADE |
+| ForeignKey | product             | Product model        | on_delete=PROTECT |
+|            | quantity            | PositiveIntegerField |                   |
+|            | unit_price_snapshot | DecimalField         | price at checkout |
+|            | line_total          | DecimalField         | quantity \* price |
 
----
+## CONTACT_MESSAGE 
+The Contact Message table stores messages submitted through the site’s contact or support form. Messages may optionally be linked to a registered user, but also support guest submissions. Each record includes sender details, subject, message content, and a timestamp, enabling administrators to manage customer enquiries and provide support efficiently.
+
+| Key        | Name       | Type          | Extra Info                    |
+| ---------- | ---------- | ------------- | ----------------------------- |
+| ForeignKey | user       | User model    | null=True, on_delete=SET_NULL |
+|            | name       | CharField     |                               |
+|            | email      | EmailField    |                               |
+|            | subject    | CharField     |                               |
+|            | message    | TextField     |                               |
+|            | created_on | DateTimeField | auto_now_add=True             |
+
 
 ## Schema Design Rationale
 
-This schema is normalized and avoids duplication:
+This schema is avoids duplication:
 
 - Products are stored once in **Product**
 - Many-to-many behavior is handled using junction models:
@@ -413,106 +474,6 @@ The structure supports real e-commerce behavior:
 > (names, types, and relationships).
 >
 
-# Database Models
-
-## USER
-| Key | Name | Type | Extra Info |
-| --- | ---- | ---- | ---------- |
-| PK | id | AutoField | primary_key=True |
-|  | username | CharField | unique=True |
-|  | first_name | CharField |  |
-|  | last_name | CharField |  |
-|  | email | EmailField | unique=True |
-|  | password | CharField | hashed |
-|  | date_joined | DateTimeField | auto_now_add=True |
-|  | is_active | BooleanField | default=True |
-|  | is_staff | BooleanField | default=False |
-
-## CATEGORY
-Stores product groupings (e.g., Necklace, Bracelets).
-### Relationship
-- One **Category** has many **Products** (1 → many)
-| Key | Name | Type | Extra Info |
-| ---:| -----:| -----:| ---------:|
-| PK  |-     |-      |-           |
-|     |- name |-      |-           |
-|     |- slug |-      |- unique=True|
-|     |- created_on|-|- auto_now_add=True|
-
-## PRODUCT
-Stores items for sale.
-
-### Key Fields
-- `category` (FK to Category)  
-- `price`  
-- `stock`  
-- `available`  
-- `image`  
-- `created`  
-- `updated`  
-
-### Relationships
-- Belongs to one **Category** (many → 1)  
-- Can appear in many carts via **CartItem** (1 → many)  
-- Can appear in many orders via **OrderItem** (1 → many)
-
-| Key        | Name        | Type                  | Extra Info        |
-| ---------- | ----------- | --------------------- | ----------------- |
-| ForeignKey | category    | Category model        | on_delete=CASCADE |
-|            | name        | CharField             |                   |
-|            | slug        | SlugField             | unique=True       |
-|            | description | TextField             |                   |
-|            | price       | DecimalField          |                   |
-|            | image       | ImageField / URLField |                   |
-|            | is_active   | BooleanField          | default=True      |
-|            | created_on  | DateTimeField         | auto_now_add=True |
-
-## CART
-| Key        | Name        | Type          | Extra Info                    |
-| ---------- | ----------- | ------------- | ----------------------------- |
-| ForeignKey | user        | User model    | null=True, on_delete=SET_NULL |
-|            | session_key | CharField     | null=True                     |
-|            | created_on  | DateTimeField | auto_now_add=True             |
-|            | updated_on  | DateTimeField | auto_now=True                 |
-
-## CART_ITEM
-| Key        | Name                | Type                 | Extra Info        |
-| ---------- | ------------------- | -------------------- | ----------------- |
-| ForeignKey | cart                | Cart model           | on_delete=CASCADE |
-| ForeignKey | product             | Product model        | on_delete=CASCADE |
-|            | quantity            | PositiveIntegerField | default=1         |
-|            | unit_price_snapshot | DecimalField         | price at add time |
-
-## ORDER
-| Key        | Name          | Type          | Extra Info               |
-| ---------- | ------------- | ------------- | ------------------------ |
-| ForeignKey | user          | User model    | on_delete=CASCADE        |
-|            | order_number  | CharField     | unique=True              |
-|            | status        | CharField     | PENDING / PAID / SHIPPED |
-|            | subtotal      | DecimalField  |                          |
-|            | shipping_cost | DecimalField  |                          |
-|            | total         | DecimalField  |                          |
-|            | created_on    | DateTimeField | auto_now_add=True        |
-|            | paid_on       | DateTimeField | null=True                |
-
-## ORDER_ITEM
-| Key        | Name                | Type                 | Extra Info        |
-| ---------- | ------------------- | -------------------- | ----------------- |
-| ForeignKey | order               | Order model          | on_delete=CASCADE |
-| ForeignKey | product             | Product model        | on_delete=PROTECT |
-|            | quantity            | PositiveIntegerField |                   |
-|            | unit_price_snapshot | DecimalField         | price at checkout |
-|            | line_total          | DecimalField         | quantity \* price |
-
-## CONTACT_MESSAGE 
-| Key        | Name       | Type          | Extra Info                    |
-| ---------- | ---------- | ------------- | ----------------------------- |
-| ForeignKey | user       | User model    | null=True, on_delete=SET_NULL |
-|            | name       | CharField     |                               |
-|            | email      | EmailField    |                               |
-|            | subject    | CharField     |                               |
-|            | message    | TextField     |                               |
-|            | created_on | DateTimeField | auto_now_add=True             |
 
 # Deployment
 ## Deployment Process (Heroku)
@@ -635,6 +596,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
