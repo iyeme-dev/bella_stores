@@ -295,67 +295,6 @@ Category → Product → Cart/CartItem → Order/OrderItem
 
 # Models and Relationships
 
-erDiagram
-USER ||--o{ CART : owns
-USER ||--o{ ORDER : places
-USER ||--o{ CONTACT_MESSAGE : submits
-
-CATEGORY ||--o{ PRODUCT : categorizes
-
-CART ||--o{ CART_ITEM : contains
-PRODUCT ||--o{ CART_ITEM : added_as
-
-ORDER ||--o{ ORDER_ITEM : includes
-PRODUCT ||--o{ ORDER_ITEM : purchased_as
-
-USER {
-  int id PK
-  string username
-  string email
-  boolean is_active
-  boolean is_staff
-}
-
-CATEGORY {
-  string name
-  string slug
-}
-
-PRODUCT {
-  string name
-  string slug
-  decimal price
-  boolean is_active
-}
-
-CART {
-  string session_key
-}
-
-CART_ITEM {
-  int quantity
-  decimal unit_price_snapshot
-}
-
-ORDER {
-  string order_number
-  string status
-  decimal total
-}
-
-ORDER_ITEM {
-  int quantity
-  decimal unit_price_snapshot
-}
-
-CONTACT_MESSAGE {
-  string name
-  string email
-  string subject
-}
-
-
-
 ## USER
 The User table stores all registered customer and administrator accounts for the site. It contains authentication and identification details such as username, email address, and encrypted password, as well as profile information including first and last names. Additional boolean fields determine whether a user account is active or has staff permissions. This table is central to the application, as it links to orders, carts, and contact messages, allowing users to place orders, manage their shopping activity, and interact with the site.
 | Key | Name | Type | Extra Info |
@@ -609,6 +548,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
