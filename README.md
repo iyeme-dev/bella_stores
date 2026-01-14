@@ -413,131 +413,74 @@ The structure supports real e-commerce behavior:
 > (names, types, and relationships).
 >
 
-USER
+# Database Models
 
-Key | Name | Type | Extra Info
+## USER
+| Key | Name | Type | Extra Info |
+| --- | ---- | ---- | ---------- |
+| PK | id | AutoField | primary_key=True |
+|  | username | CharField | unique=True |
+|  | first_name | CharField |  |
+|  | last_name | CharField |  |
+|  | email | EmailField | unique=True |
+|  | password | CharField | hashed |
+|  | date_joined | DateTimeField | auto_now_add=True |
+|  | is_active | BooleanField | default=True |
+|  | is_staff | BooleanField | default=False |
 
-PK | id | AutoField | primary_key=True
+## CATEGORY
+| Key | Name | Type | Extra Info |
+| ---:| -----:| -----:| ---------:|
+| PK  |-     |-      |-           |
+|     |- name |-      |-           |
+|     |- slug |-      |- unique=True|
+|     |- created_on|-|- auto_now_add=True|
 
-username | CharField | unique=True
+## PRODUCT
+| Key                || Name          || Type             || Extra Info                     |
+|-                  || -             || -                || -                                |
+|-                  || ForeignKey    || category         || Category model on_delete=CASCADE|
+|-                  || name          || CharField        ||                                
+|-                  || slug          || SlugField        || unique=True                     
+|-                  || description   || TextField        ||                                
+|-                  || price         || DecimalField     ||                                
+|-                  || image         || ImageField / URLField||                              
+|-                  || is_active     || BooleanField     || default=True                    
+|-                  || created_on    ||= DateTimeField   ||= auto_now_add=True            
 
-first_name | CharField |
+## CART
+| Key                ||= Name            ||= Type               ||= Extra Info                        |
+|-                   ||= -               ||= -                  ||= ----------------------------------|
+|-                   ||= ForeignKey       ||= user               ||= User model null=True, on_delete=SET_NULL|
+|-                   ||= session_key      ||= CharField          ||= null=True                         
+|-                   ||= created_on       ||= DateTimeField      ||= auto_now_add=True                 
+|-                   ||= updated_on       ||= DateTimeField      ||= auto_now=True                     
 
-last_name | CharField |
+## CART_ITEM
+| Key                |= Name                 |= Type                      |= Extra Info                          |
+|-                   |= --------------------- |= ------------------------- |= -----------------------------------|
+|-                   |= ForeignKey             |= cart                      |= Cart model on_delete=CASCADE        \\ n-                   |= ForeignKey             |= product                   |= Product model on_delete=CASCADE    \\ n-                   |= quantity               |= PositiveIntegerField        |= default=1                         \\ n-                   |= unit_price_snapshot    |= DecimalField                |= price at add time                 \\ n-                   |= line_total             |= DecimalField                |= quantity * price                    \\ n
+## ORDER
+| Key                =|| Name            =|| Type              =|| Extra Info                       =|
+|-                  =|| -               =|| -                 =|| ----------------------------------=
+|-                  =|| ForeignKey      =|| user              =|| User model on_delete=CASCADE   =
+|-                  =|| order_number    =|| CharField         =|| unique=True                     =
+|-                  =|| status          =|| Charfield         =|| PENDING / PAID / SHIPPED        =
+|-                  =|| subtotal        =|| Decimalfield      =||                                 
+|-                  =|| shipping_cost   =|| Decimalfield      =||                                 
+|-                  =|| total           =|| Decimalfield      =||                                 
+|-                  =|| created_on      ==DateTimeFiled     ==auto_now_add=True              ==
+|-                  ==paid_on==       ==DateTimeFiled     ==null=true                       ==
 
-email | EmailField | unique=True
+## ORDER_ITEM
+| Key                ^===Name==^            ^===Type==^                          ^===Extra Info==^                            |
+^-                 ^=---------------------^ ^=-------------------------^ ^=-----------------------------------^
+^-                 ^=ForeignKey             ^ ^=cart                      ^ ^=Cart model on_delete=CASCADE        ^
+^-                 ^=ForeignKey             ^ ^=product                   ^ ^=Product model on_delete=PROTECT   ^
+^-                 ^=quantity               ^ ^=PositiveIntegerFields       ^ ^=default=1                         ^
+^-                 ^=unit_price_snapshot    ^ ^=DecimalFields               ^ ^=price at checkout                ^
+^-                 ^=line_total             ^ ^=DecimalFields               ^ ^=quantity * price                    ^
 
-password | CharField | hashed
-
-date_joined | DateTimeField | auto_now_add=True
-
-is_active | BooleanField | default=True
-
-is_staff | BooleanField | default=False
-
-CATEGORY
-
-Key | Name | Type | Extra Info
-
-name | CharField |
-
-slug | SlugField | unique=True
-
-created_on | DateTimeField | auto_now_add=True
-
-PRODUCT
-
-Key | Name | Type | Extra Info
-
-ForeignKey | category | Category model | on_delete=CASCADE
-
-name | CharField |
-
-slug | SlugField | unique=True
-
-description | TextField |
-
-price | DecimalField |
-
-image | ImageField / URLField |
-
-is_active | BooleanField | default=True
-
-created_on | DateTimeField | auto_now_add=True
-
-CART
-
-Key | Name | Type | Extra Info
-
-ForeignKey | user | User model | null=True, on_delete=SET_NULL
-
-session_key | CharField | null=True
-
-created_on | DateTimeField | auto_now_add=True
-
-updated_on | DateTimeField | auto_now=True
-
-CART_ITEM
-
-Key | Name | Type | Extra Info
-
-ForeignKey | cart | Cart model | on_delete=CASCADE
-
-ForeignKey | product | Product model | on_delete=CASCADE
-
-quantity | PositiveIntegerField | default=1
-
-unit_price_snapshot | DecimalField | price at add time
-
-ORDER
-
-Key | Name | Type | Extra Info
-
-ForeignKey | user | User model | on_delete=CASCADE
-
-order_number | CharField | unique=True
-
-status | CharField | PENDING / PAID / SHIPPED
-
-subtotal | DecimalField |
-
-shipping_cost | DecimalField |
-
-total | DecimalField |
-
-created_on | DateTimeField | auto_now_add=True
-
-paid_on | DateTimeField | null=True
-
-ORDER_ITEM
-
-Key | Name | Type | Extra Info
-
-ForeignKey | order | Order model | on_delete=CASCADE
-
-ForeignKey | product | Product model | on_delete=PROTECT
-
-quantity | PositiveIntegerField |
-
-unit_price_snapshot | DecimalField | price at checkout
-
-line_total | DecimalField | quantity * price
-
-CONTACT_MESSAGE
-
-Key | Name | Type | Extra Info
-
-ForeignKey | user | User model | null=True, on_delete=SET_NULL
-
-name | CharField |
-
-email | EmailField |
-
-subject | CharField |
-
-message | TextField |
-
-created_on | DateTimeField | auto_now_add=True
 
 
 # Deployment
@@ -661,6 +604,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
