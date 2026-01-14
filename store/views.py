@@ -10,6 +10,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
+from .models import ContactMessage
 
 def home(request, category_slug=None):
     category_page = None
@@ -254,15 +255,24 @@ def sendEmail(order_id):
         return e
     
 def contact(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ContactForm(request.POST)
-        if form.is_valid():
-            return redirect('contact_success')
 
+        if form.is_valid():
+            # Save to DB
+            ContactMessage.objects.create(
+                name=form.cleaned_data["name"],
+                email=form.cleaned_data["email"],
+                subject=form.cleaned_data["subject"],
+                message=form.cleaned_data["message"],
+            )
+
+            return redirect("contact_success")
     else:
         form = ContactForm()
 
-    return render(request, 'contact.html', {'form': form})
+    return render(request, "contact.html", {"form": form})
+
 
 def contact_success(request):
     return render(request, 'contact_success.html')

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Category, Product, Order, OrderItem, Review
+from .models import ContactMessage
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
@@ -54,3 +55,9 @@ class OrderAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+    
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ("name", "email", "subject", "created")
+    search_fields = ("name", "email", "subject")
+    list_filter = ("created",)
