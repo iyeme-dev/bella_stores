@@ -295,13 +295,81 @@ Category → Product → Cart/CartItem → Order/OrderItem
 
 # Models and Relationships
 
-Customer (customer_id PK, name, email)
-   1 ────────< places >──────── N
-Order (order_id PK, order_date, customer_id FK)
-   1 ────────< contains >────── N
-OrderItem (order_id PK/FK, product_id PK/FK, quantity, unit_price)
-   N ────────< included_in >─── 1
-Product (product_id PK, name, price)
+erDiagram
+    USER ||--o{ CART : owns
+    USER ||--o{ ORDER : places
+    USER ||--o{ CONTACT_MESSAGE : submits
+
+    CATEGORY ||--o{ PRODUCT : categorizes
+
+    CART ||--o{ CART_ITEM : contains
+    PRODUCT ||--o{ CART_ITEM : added_as
+
+    ORDER ||--o{ ORDER_ITEM : includes
+    PRODUCT ||--o{ ORDER_ITEM : purchased_as
+
+    USER {
+        int id PK
+        string username
+        string first_name
+        string last_name
+        string email
+        string password
+        datetime date_joined
+        boolean is_active
+        boolean is_staff
+    }
+
+    CATEGORY {
+        string name
+        string slug
+        datetime created_on
+    }
+
+    PRODUCT {
+        string name
+        string slug
+        text description
+        decimal price
+        string image
+        boolean is_active
+        datetime created_on
+    }
+
+    CART {
+        string session_key
+        datetime created_on
+        datetime updated_on
+    }
+
+    CART_ITEM {
+        int quantity
+        decimal unit_price_snapshot
+    }
+
+    ORDER {
+        string order_number
+        string status
+        decimal subtotal
+        decimal shipping_cost
+        decimal total
+        datetime created_on
+        datetime paid_on
+    }
+
+    ORDER_ITEM {
+        int quantity
+        decimal unit_price_snapshot
+        decimal line_total
+    }
+
+    CONTACT_MESSAGE {
+        string name
+        string email
+        string subject
+        text message
+        datetime created_on
+    }
 
 
 ## USER
@@ -557,6 +625,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
