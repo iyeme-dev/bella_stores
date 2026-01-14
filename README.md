@@ -437,16 +437,16 @@ The structure supports real e-commerce behavior:
 |     |- created_on|-|- auto_now_add=True|
 
 ## PRODUCT
-| Key                || Name          || Type             || Extra Info                     |
-|-                  || -             || -                || -                                |
-|-                  || ForeignKey    || category         || Category model on_delete=CASCADE|
-|-                  || name          || CharField        ||                                
-|-                  || slug          || SlugField        || unique=True                     
-|-                  || description   || TextField        ||                                
-|-                  || price         || DecimalField     ||                                
-|-                  || image         || ImageField / URLField||                              
-|-                  || is_active     || BooleanField     || default=True                    
-|-                  || created_on    ||= DateTimeField   ||= auto_now_add=True            
+| Key        | Name        | Type                  | Extra Info        |
+| ---------- | ----------- | --------------------- | ----------------- |
+| ForeignKey | category    | Category model        | on_delete=CASCADE |
+|            | name        | CharField             |                   |
+|            | slug        | SlugField             | unique=True       |
+|            | description | TextField             |                   |
+|            | price       | DecimalField          |                   |
+|            | image       | ImageField / URLField |                   |
+|            | is_active   | BooleanField          | default=True      |
+|            | created_on  | DateTimeField         | auto_now_add=True |
 
 ## CART
 | Key                ||= Name            ||= Type               ||= Extra Info                        |
@@ -604,6 +604,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
