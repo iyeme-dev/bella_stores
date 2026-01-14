@@ -293,86 +293,14 @@ The core workflow is:
 
 Category → Product → Cart/CartItem → Order/OrderItem
 
-## Entity Relationship Diagram (ERD)
-erDiagram
-  CATEGORY ||--o{ PRODUCT : has
-  CART ||--o{ CART_ITEM : contains
-  PRODUCT ||--o{ CART_ITEM : appears_in
-  "ORDER" ||--o{ ORDER_ITEM : includes
-  "ORDER" }o--|| USER : placed_by
-  PRODUCT ||--o{ ORDER_ITEM : purchased_as
+## Models and Relationships
+### Category
 
-  CATEGORY {
-    int id PK
-    string name
-    string slug
-    text description
-    string image
-  }
+Stores product groupings (e.g., Phones, Laptops).
 
-  PRODUCT {
-    int id PK
-    string name
-    string slug
-    text description
-    decimal price
-    int stock
-    bool available
-    datetime created
-    datetime updated
-    int category_id FK
-    string image
-  }
+#### Relationship
 
-  CART {
-    int id PK
-    string cart_id
-    datetime date_added
-  }
-
-  CART_ITEM {
-    int id PK
-    int quantity
-    bool active
-    int cart_id FK
-    int product_id FK
-  }
-
-  "ORDER" {
-    int id PK
-    string token
-    decimal total
-    string emailAddress
-    datetime created
-    string billingName
-    string billingAddress1
-    string billingCity
-    string billingPostcode
-    string billingCountry
-    string shippingName
-    string shippingAddress1
-    string shippingCity
-    string shippingPostcode
-    string shippingCountry
-    int user_id FK
-  }
-
-  ORDER_ITEM {
-    int id PK
-    string product
-    int quantity
-    decimal price
-    int order_id FK
-  }
-
-  USER {
-    int id PK
-    string username
-    string email
-  }
-
-
-## Entities and Relationships
+- One Category has many Products (1 → many)
 
 
 # Deployment
@@ -496,6 +424,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
