@@ -297,6 +297,23 @@ Category → Product → Cart/CartItem → Order/OrderItem
 
 ## USER
 The User table stores all registered customer and administrator accounts for the site. It contains authentication and identification details such as username, email address, and encrypted password, as well as profile information including first and last names. Additional boolean fields determine whether a user account is active or has staff permissions. This table is central to the application, as it links to orders, carts, and contact messages, allowing users to place orders, manage their shopping activity, and interact with the site.
+
+### Relationships
+#### User → Cart
+Type: One-to-Many (1 → Many)
+One user can have multiple carts over time
+Each cart belongs to one user (or is NULL for guests)
+
+#### User → Order
+Type: One-to-Many (1 → Many)
+One user can place many orders
+Each order belongs to exactly one user
+
+#### User → ContactMessage
+Type: One-to-Many (1 → Many)
+One user can submit many contact messages
+Each message optionally belongs to one user
+
 | Key | Name | Type | Extra Info |
 | --- | ---- | ---- | ---------- |
 | PK | id | AutoField | primary_key=True |
@@ -405,6 +422,13 @@ The Order Item table records the individual products associated with an order. I
 
 ## CONTACT_MESSAGE 
 The Contact Message table stores messages submitted through the site’s contact or support form. Messages may optionally be linked to a registered user, but also support guest submissions. Each record includes sender details, subject, message content, and a timestamp, enabling administrators to manage customer enquiries and provide support efficiently.
+
+### Relationship
+User → ContactMessage
+Type: One-to-Many (1 → N)
+- One User can submit many ContactMessages
+- Each ContactMessage belongs to one User
+- The relationship is optional (user can be NULL for guest messages)
 
 | Key        | Name       | Type          | Extra Info                    |
 | ---------- | ---------- | ------------- | ----------------------------- |
@@ -548,6 +572,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
