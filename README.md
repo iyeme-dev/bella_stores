@@ -295,13 +295,10 @@ Category → Product → Cart/CartItem → Order/OrderItem
 
 ## Models and Relationships
 ### Category
-
 Stores product groupings (e.g., Phones, Laptops).
-
 #### Relationship
-
 - One Category has many Products (1 → many)
-
+---
 
 # Deployment
 ## Deployment Process (Heroku)
@@ -424,6 +421,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
