@@ -295,6 +295,15 @@ Category → Product → Cart/CartItem → Order/OrderItem
 
 # Models and Relationships
 
+Customer (customer_id PK, name, email)
+   1 ────────< places >──────── N
+Order (order_id PK, order_date, customer_id FK)
+   1 ────────< contains >────── N
+OrderItem (order_id PK/FK, product_id PK/FK, quantity, unit_price)
+   N ────────< included_in >─── 1
+Product (product_id PK, name, price)
+
+
 ## USER
 The User table stores all registered customer and administrator accounts for the site. It contains authentication and identification details such as username, email address, and encrypted password, as well as profile information including first and last names. Additional boolean fields determine whether a user account is active or has staff permissions. This table is central to the application, as it links to orders, carts, and contact messages, allowing users to place orders, manage their shopping activity, and interact with the site.
 | Key | Name | Type | Extra Info |
@@ -418,7 +427,7 @@ The Contact Message table stores messages submitted through the site’s contact
 
 ## Schema Design Rationale
 
-This schema is avoids duplication:
+This schema avoids duplication:
 
 - Products are stored once in **Product**
 - Many-to-many behavior is handled using junction models:
@@ -548,6 +557,7 @@ Heroku will:
 ## Hosting
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
+
 
 
 
