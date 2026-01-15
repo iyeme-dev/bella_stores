@@ -28,7 +28,7 @@ Bella Store is a user-friendly e-commerce platform offering a collection of beau
 7. [Testing](#testing)
    - [Browser Testing](#browser-testing)  
    - [Code Validation](#code-validation)  
-   - [Lighthouse Test](#lighthouse-test)
+   - [Test Driven Development TDD](#TDD)
 8. [Testing Errors and Improvements](#testing-errors-and-improvements)
 9. [Technologies Used](#technologies-used)
 10. [Credit and Reference](#credit-and-reference)
@@ -637,6 +637,10 @@ Tested the **product detail page** at these widths, since issues were already ob
 
 ---
 
+## Test-Driven Development (TDD)
+### Cart functionality
+Cart functionality was implemented using a Test-Driven Development approach. Unit tests were written to define expected behaviour for adding and removing items from the cart, including edge cases where item quantity reaches zero. The application logic was then implemented and refined until all tests passed successfully, as verified using Django’s automated test framework.
+
 ## Functional Testing (User Story Coverage)
 
 ### Product Browsing & Discovery
@@ -707,6 +711,7 @@ Implementation is handled by passing an error message into `cart.html` and rende
 ---
 
 ✅ All functional user stories have been tested and passed successfully.
+
 
 
 
