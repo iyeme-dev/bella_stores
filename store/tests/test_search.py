@@ -39,3 +39,18 @@ class SearchViewTests(TestCase):
             stock=0,
             available=False,
         )
+    def test_search_returns_products_that_match_query(self):
+        """Search should return only available products that match query."""
+        url = reverse("search")
+        response = self.client.get(url, {"title": "Gold"})
+
+        self.assertEqual(response.status_code, 200)
+
+        # Should include matching available product
+        self.assertContains(response, "Gold Bracelet")
+
+        # Should NOT include non-matching product
+        self.assertNotContains(response, "Silver Ring")
+
+        # Should NOT include unavailable product even if it matches query
+        self.assertNotContains(response, "Gold Necklace")
