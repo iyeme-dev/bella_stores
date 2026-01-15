@@ -19,3 +19,17 @@ class CartTests(TestCase):
             stock=10,
             available=True,
         )
+
+    def test_add_cart_creates_cart_item_and_redirects(self):
+        """Adding a product should create a Cart + CartItem and redirect to cart page."""
+        add_url = reverse("add_cart", args=[self.product.id])
+
+        response = self.client.get(add_url)
+
+        # 1) it should redirect to cart_detail
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse("cart_detail"))
+
+        # 2) item exists
+        cart_item = CartItem.objects.get(product=self.product)
+        self.assertEqual(cart_item.quantity, 1)
