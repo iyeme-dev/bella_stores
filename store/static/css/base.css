@@ -20,6 +20,27 @@ body {
   letter-spacing: .2em;
 }
 
+/* Product detail image fix */
+.product-image-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.product-image-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Tablet & mobile image containment */
+@media (max-width: 991.98px) {
+  .product-image-wrapper img {
+    max-height: 400px;
+    object-fit: contain;
+  }
+}
+
 .errorlist li {
     color: red;
     font-weight: bold;
