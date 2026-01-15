@@ -156,7 +156,7 @@ The Bella Store website follows a clear, logical layout designed to guide users 
 ---
 
 ### Navigation Bar and Global Layout
-![Navigation Bar](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/navigation_bar.jpg))
+![Navigation Bar](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/navigation_bar.jpg)
 
 The navigation bar is fixed at the top of every page and provides consistent access to the core sections of the site. It includes:
 - A **category dropdown menu**
@@ -170,6 +170,7 @@ This consistent structure ensures users can navigate the site easily from any pa
 ---
 
 ### Product Categories and Filtering
+![Product Categories and Filtering](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/category_filter.jpg)
 
 The homepage is structured around a **category-based browsing system**.  
 Users can filter products by selecting categories such as bracelets, earrings, necklaces, and watches from the dropdown menu.
@@ -221,6 +222,7 @@ The cart dynamically updates quantities and totals as users add or remove items,
 ---
 
 ### Secure Checkout Process
+![Secure Checkout Process](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/checkout_shipping_details.jpg)
 
 The checkout section is integrated directly into the cart page and uses **Stripe** for payment processing.  
 The structure includes:
@@ -235,6 +237,7 @@ This ensures user confidence and data security, addressing:
 ---
 
 ### Order Confirmation Page
+![Order Confirmation Page](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/order_%20confirmation.jpg)
 
 After a successful payment, users are redirected to a **Thank You / Order Confirmation page** which includes:
 - Order reference number
@@ -266,6 +269,7 @@ This supports both new and returning users, addressing:
 ---
 
 ### Order History and Order Detail Pages
+![Order Confirmation Page](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/order_%20confirmation.jpg)
 
 Authenticated users can access an **Order History page** listing previous purchases.  
 Each order links to a detailed view showing:
@@ -287,15 +291,18 @@ Each section is logically structured to meet user needs while maintaining simpli
 
 ## Wireframes 
 
-Wireframe for Desktop and mobile screen sizes respectively
+Wireframe for Desktop and mobile screen sizes, respectively
+![Wireframes](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/Bella_wf.png)
 
 # Database Schema
 Bella Stores uses Django ORM models to represent the core ecommerce data: products, categories, shopping carts, orders, reviews, and contact messages. 
 The core workflow is:
 
 Category → Product → Cart/CartItem → Order/OrderItem
+## ER Diagram
+![ER Diagram](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/erd.png)
 
-# Models and Relationships
+## Models and Relationships
 
 ## USER
 The User table stores all registered customer and administrator accounts for the site. It contains authentication and identification details such as username, email address, and encrypted password, as well as profile information including first and last names. Additional boolean fields determine whether a user account is active or has staff permissions. This table is central to the application, as it links to orders, carts, and contact messages, allowing users to place orders, manage their shopping activity, and interact with the site.
@@ -693,6 +700,7 @@ Implementation is handled by passing an error message into `cart.html` and rende
 ---
 
 ✅ All functional user stories have been tested and passed successfully.
+
 
 
 
