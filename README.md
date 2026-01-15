@@ -35,6 +35,7 @@ Bella Store is a user-friendly e-commerce platform offering a collection of beau
 11. [Author](#author)
 
 # Project Overview
+![Bella Stores](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/responsive_screen.jpg)
 Bella Stores is a responsive, user-centric online jewellery shop designed to make browsing and purchasing elegant accessories simple and enjoyable. The website organizes products into clear categories and provides detailed product pages with high-quality images, helping users quickly find what they want. It features an intuitive shopping cart and secure Stripe payment integration, so buyers can confidently complete purchases, view order confirmations, and manage their accounts. Built with a clean, visually appealing layout and seamless navigation, Bella Stores addresses common online shopping frustrations—like difficulty finding products, confusing checkout, and unclear site structure—while catering to fashion-aware buyers seeking a trustworthy and engaging e-commerce experience.
 
 # User Stories
@@ -186,12 +187,14 @@ This layout directly supports the user story:
 ---
 
 ### Product Listings and Product Detail Pages
+![Product Listings](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/product_listing.jpg)
 
 Products are displayed in a clean grid layout featuring:
 - High-quality product images
 - Clear product names and prices
 - A consistent visual structure across all listings
 
+![Product Detail](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/product_detail_page.jpg)
 Clicking a product opens a **dedicated product detail page**, which includes:
 - A larger product image
 - A detailed description
@@ -200,11 +203,12 @@ Clicking a product opens a **dedicated product detail page**, which includes:
 
 This structure supports confidence in purchasing and addresses the user story:
 
-> *As a buyer, I want to see clear product images and descriptions, so I can feel confident in the purchase.*
+As a buyer, I want to see clear product images and descriptions so I can feel confident in my purchase.*
 
 ---
 
 ### Shopping Cart Page
+![Shopping Cart](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/shopping_cart_page.jpg)
 
 The cart page is divided into two clear sections:
 1. **Item Summary**
@@ -251,11 +255,13 @@ This provides reassurance and closure, fulfilling:
 ---
 
 ### User Account Registration and Authentication
+![User Account Registration](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/user_account_registration.jpg)
 
 The site includes dedicated pages for:
 - **User registration (Sign Up)**
 - **User login (Sign In)**
 
+![User Account Authentication](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/user_sign_in.jpg)
 Once authenticated, users can:
 - View order history
 - Access individual order details
@@ -462,6 +468,7 @@ This schema avoids duplication:
 
 # Deployment
 ## Deployment Process (Heroku)
+![Deployment](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/deployment.jpg)
 
 This section outlines the process used to deploy the Bella Store Django website to Heroku, including production settings, database setup, static/media hosting with AWS S3, and final release steps.
 
@@ -700,6 +707,7 @@ Implementation is handled by passing an error message into `cart.html` and rende
 ---
 
 ✅ All functional user stories have been tested and passed successfully.
+
 
 
 
