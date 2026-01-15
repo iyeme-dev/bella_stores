@@ -641,6 +641,8 @@ Tested the **product detail page** at these widths, since issues were already ob
 ### Cart functionality
 Cart functionality was implemented using a Test-Driven Development approach. Unit tests were written to define expected behaviour for adding and removing items from the cart, including edge cases where item quantity reaches zero. The application logic was then implemented and refined until all tests passed successfully, as verified using Django’s automated test framework.
 
+	Command used: python manage.py test
+	•	Result: Ran 3 tests ... OK
 ## Functional Testing (User Story Coverage)
 
 ### Product Browsing & Discovery
@@ -711,6 +713,7 @@ Implementation is handled by passing an error message into `cart.html` and rende
 ---
 
 ✅ All functional user stories have been tested and passed successfully.
+
 
 
 
