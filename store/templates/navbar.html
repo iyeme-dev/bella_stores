@@ -5,8 +5,8 @@
         </a>
         <button type="button" class="navbar-toggler bg-light" data-toggle="collapse"
         data-target="#nav" name="button"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse justify-content-between" id="nav">
-        <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown"><a class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle"
                 href="" data-toggle="dropdown">Categories</a>
                 <div class="dropdown-menu">
@@ -52,11 +52,11 @@
                 <a class="nav-link text-light text-uppercase font-weight-bold px-3" href="{% url 'cart_detail' %}">
                     <i class="fas fa-shopping-cart"></i>({{item_count}})
                 </a>
-                {% endif %}
             </li>
+            {% endif %}
         </ul>
 
-        <form class="form-inline mx-3" action="{% url 'search' %}" method="GET">
+        <form class="form-inline my-2 my-md-0" action="{% url 'search' %}" method="GET">
 
             <div class="input-group">
                 <input type="text" name="title" class="form-control" placeholder="Search">
