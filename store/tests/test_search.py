@@ -54,3 +54,17 @@ class SearchViewTests(TestCase):
 
         # Should NOT include unavailable product even if it matches query
         self.assertNotContains(response, "Gold Necklace")
+
+    def test_search_with_empty_query_returns_all_available_products(self):
+        """Empty search should return all available products."""
+        url = reverse("search")
+        response = self.client.get(url, {"title": ""})
+
+        self.assertEqual(response.status_code, 200)
+
+        # All available products should show
+        self.assertContains(response, "Gold Bracelet")
+        self.assertContains(response, "Silver Ring")
+
+        # Unavailable should not show
+        self.assertNotContains(response, "Gold Necklace")
