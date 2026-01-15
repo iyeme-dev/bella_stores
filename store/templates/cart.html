@@ -23,6 +23,17 @@ Cart
       Your shopping cart
     </div>
   </div>
+
+  {% if error %}
+    <div class="container mt-3">
+      <div class="alert alert-danger" role="alert">
+        <strong>Payment unsuccessful.</strong> {{ error }}
+        <br>
+        Please try again or use a different card.
+      </div>
+    </div>
+  {% endif %}
+  
   <div class="row mx-auto">
     <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
       <table class="table cart_table">
