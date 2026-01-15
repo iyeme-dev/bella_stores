@@ -7,8 +7,14 @@ Product
 {% block content %}
 <div class="container py-5">
     <div class="row mt-5">
-        <div class="col-10 mx-auto col-md-6 my-3">
-            <img src="{{product.image.url}}" alt="">
+        <div class="col-12 col-md-6 my-3">
+            <div class="product-image-wrapper">
+                <img
+                    src="{{ product.image.url }}"
+                    alt="{{ product.name }}"
+                    class="img-fluid w-100"
+                >
+            </div>
         </div>
         <div class="col-10 mx-auto col-md-6 my-3">
             <div>
