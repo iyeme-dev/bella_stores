@@ -574,6 +574,127 @@ Heroku will:
 The Bella Stores website was hosted using the Heroku cloud platform to provide a scalable and accessible production environment.
 Static and media files were managed using Amazon S3 to ensure reliable storage and fast content delivery. This hosting approach ensures the site is stable, secure, and accessible to users across different devices and locations.
 
+# Testing 
+## Browser Testing (BrowserStack / Cross-Browser)
+
+## Identified Issue and Resolution (Responsive Bug)
+### Issue Identified
+
+During responsive testing, a layout issue was discovered on the **Product Detail** page:
+
+- On **tablet devices**, product images were overlapping adjacent text content.
+- On **mobile devices**, product images were extending beyond the viewport and not remaining contained within their column.
+
+This negatively impacted **readability** and **usability**, particularly for users browsing products on tablets and smartphones.
+
+---
+
+### How the Issue Was Fixed
+
+The issue was resolved by improving the responsiveness of the product image using **Bootstrap utilities** and responsive image styling:
+
+- The image was constrained to its grid column using Bootstrap’s responsive image class.
+- A maximum width was enforced to prevent overflow.
+- Height was allowed to scale automatically to preserve the image’s aspect ratio.
+
+---
+
+| Browser  | Device                  | OS           | Responsiveness (Expected) | What to Verify |
+|--------|--------------------------|--------------|----------------------------|---------------|
+| Chrome | Google Pixel 8           | Android 14   | Very Good                  | Navbar collapses, product cards align, images scale correctly, **Add to Cart** works |
+| Safari | iPhone 15                | iOS 17       | Very Good                  | Product image stays inside frame, text doesn’t overlap, cart table is readable |
+| Edge   | iPad (7th Gen)           | iPadOS 17    | Very Good                  | Product detail layout remains two-column or stacks cleanly, no image overlap |
+| Chrome | Desktop (1366×768+)      | Windows 11   | Very Good                  | Category dropdown works, search works, cart totals display correctly |
+| Firefox| Desktop                  | macOS / Windows | Very Good              | Layout consistency, buttons and links work, forms render correctly |
+
+---
+
+## Responsive Testing (Breakpoints)
+
+Tested the **product detail page** at these widths, since issues were already observed here.
+
+| Breakpoint     | Width      | Expected Layout        | What to Check |
+|---------------|------------|------------------------|---------------|
+| Small mobile  | ≤575px     | Stacked layout         | Product image must scale inside column (no overflow), text readable |
+| Large mobile  | ≥576px     | Stacked or tight 2-col | Image still contained, spacing not cramped |
+| Tablet        | ≥768px     | Two-column layout      | Image must not overlap text, stay within its grid column |
+| Desktop       | ≥992px     | Two-column layout      | Image and text balanced, no excessive stretching |
+
+---
+
+## Functional Testing (User Story Coverage)
+
+### Product Browsing & Discovery
+
+- Home page loads products and shows category navigation — **PASS**
+- Category filter works (selecting a category shows only that category’s items) — **PASS**
+- Search returns matching products and handles empty search without breaking — **PASS**
+
+---
+
+### Product Detail
+
+- Product detail page displays product name — **PASS**
+- Product detail page displays price — **PASS**
+- Product detail page displays description — **PASS**
+- Product image loads correctly and is responsive — **PASS**
+
+---
+
+### Cart
+
+- Clicking **Add to Cart** adds item and redirects to cart — **PASS**
+- Cart displays item image — **PASS**
+- Cart displays item name and SKU — **PASS**
+- Cart displays quantity line and unit price — **PASS**
+- Cart displays subtotal per item — **PASS**
+- Cart displays cart total — **PASS**
+- Plus / minus / trash buttons correctly update quantities or remove items — **PASS**
+
+---
+
+### Checkout / Payment
+
+- Checkout button appears on cart page — **PASS**
+- Successful payment redirects to a **Thank You** page — **PASS**
+- Failed payment displays a helpful error message — **PASS**
+
+---
+
+### Accounts
+
+- Sign up creates a user account — **PASS**
+- Sign in works with valid credentials — **PASS**
+- Logged-in users can access order history — **PASS**
+- Logged-out users are redirected from restricted pages — **PASS**
+
+---
+
+### Feedback System for Unsuccessful Purchases
+
+Because checkout is handled in `cart_detail()` and Stripe errors may occur, the feedback system was tested as follows.
+
+#### Test Cases
+
+- Invalid Stripe key displays a friendly message on the cart page — **PASS**
+- Card declined displays a friendly message on the cart page — **PASS**
+- Missing Stripe token (user closes payment popup) displays a friendly message on the cart page — **PASS**
+
+#### Expected Result
+
+- User remains on `/cart/` — **PASS**
+- Page displays a clear and user-friendly message, for example:
+
+> **“Payment failed. Your card was declined. Please try another card or try again.”**
+
+Implementation is handled by passing an error message into `cart.html` and rendering it near the checkout section.
+
+---
+
+✅ All functional user stories have been tested and passed successfully.
+
+
+
 
 
 
