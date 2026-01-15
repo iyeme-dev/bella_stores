@@ -33,3 +33,25 @@ class CartTests(TestCase):
         # 2) item exists
         cart_item = CartItem.objects.get(product=self.product)
         self.assertEqual(cart_item.quantity, 1)
+
+    def test_cart_remove_deletes_item_when_quantity_is_one(self):
+        """Removing should delete the item when quantity == 1."""
+        add_url = reverse("add_cart", args=[self.product.id])
+        remove_url = reverse("cart_remove", args=[self.product.id])
+
+        self.client.get(add_url)  # quantity 1
+        self.client.get(remove_url)
+
+        self.assertFalse(CartItem.objects.filter(product=self.product).exists())
+
+    def test_cart_remove_product_deletes_item(self):
+        """Remove product should delete item regardless of quantity."""
+        add_url = reverse("add_cart", args=[self.product.id])
+        remove_product_url = reverse("cart_remove_product", args=[self.product.id])
+
+        self.client.get(add_url)
+        self.client.get(add_url)  # quantity 2
+
+        self.client.get(remove_product_url)
+
+        self.assertFalse(CartItem.objects.filter(product=self.product).exists())
