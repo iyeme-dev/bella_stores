@@ -156,6 +156,7 @@ The Bella Store website follows a clear, logical layout designed to guide users 
 ---
 
 ### Navigation Bar and Global Layout
+![Brand colors](https://github.com/iyeme-dev/home-staging/blob/252571afdc0ee8fb7d3e541455b42399b398f00b/screenshots/color-collage.jpg)
 
 The navigation bar is fixed at the top of every page and provides consistent access to the core sections of the site. It includes:
 - A **category dropdown menu**
@@ -692,6 +693,7 @@ Implementation is handled by passing an error message into `cart.html` and rende
 ---
 
 ✅ All functional user stories have been tested and passed successfully.
+
 
 
 
