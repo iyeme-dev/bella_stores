@@ -73,7 +73,7 @@ With the growth of e-commerce, customers increasingly expect fast, secure, and v
 
 ### Proposed Solution
 
-This project offers a responsive and user-friendly home staging website that is clear, helpful, and easy to navigate. It offers some features and functionalities that helps to offer solutions to the user stories.
+This project offers a responsive and user-friendly e-commerce website that is clear, helpful, and easy to navigate. It offers some features and functionalities that helps to offer solutions to the user stories.
 
 #### Key Features and Functionalities
 
@@ -132,23 +132,23 @@ Compared to many existing small-scale jewellery websites, Bella Stores offers a 
 
 ### Project Scope and Limitations
 
-The scope of this project focuses on core e-commerce functionality, including product browsing, cart management, secure checkout, and user accounts. While the site successfully supports essential shopping features, it does not currently include advanced functionalities such as wishlists, product recommendations, discount codes, or multi-currency support. The project is also limited to a single storefront without vendor management or inventory analytics.
+The scope of this project focuses on core e-commerce functionality, including product browsing, cart management, secure checkout, and user accounts. While the site successfully supports essential shopping features, it does not currently include advanced functionalities such as wishlists, product recommendations, discount codes, or multi-currency support. 
 
 ### Future Improvements
 
-Future enhancements could include user reviews and ratings, wishlist functionality, improved search and filtering options, email order confirmations, and promotional features such as discount codes. Additional improvements may also involve performance optimization, enhanced mobile UX, and expanded payment options to support a broader customer base.
+Future enhancements could include wishlist functionality, improved search and filtering options, and promotional features such as discount codes. Additional improvements may also involve performance optimization, enhanced mobile UX, and expanded payment options to support a broader customer base.
 
 ### Summary
 
-Bella Stores was developed to solve common online jewellery shopping challenges by offering a clean, secure, and intuitive e-commerce experience. Guided by user-centered design principles and real user stories, the project delivers clear product presentation, smooth navigation, and reliable checkout functionality. Overall, Bella Stores demonstrates how thoughtful design and robust backend implementation can significantly improve customer satisfaction and trust in online retail platforms.
+Bella Stores was developed to solve common online jewellery shopping challenges by offering a clean and secure e-commerce experience. Guided by user-centered design principles and real user stories, the project delivers clear product presentation, smooth navigation, and reliable checkout functionality. Overall, Bella Stores demonstrates how thoughtful design and robust backend implementation can significantly improve customer satisfaction and trust in online retail platforms.
 
 # Design
 
-The design of the Bella Store website prioritises clarity, usability, and visual appeal, ensuring a seamless experience across devices. A responsive grid layout and Bootstrap framework are used to maintain consistent alignment and spacing, enhancing readability and navigability. Navigation elements, such as the main menu and category dropdown, are positioned prominently to facilitate easy browsing and product discovery. High-resolution product images and clear typography engage the user visually while conveying essential information effectively. Functionality and aesthetics are balanced throughout the design; interactive elements such as buttons and links provide immediate feedback, while whitespace and structured sections reduce cognitive load. Overall, the site’s design fosters intuitive interaction, guiding users from initial exploration through to checkout with minimal friction.
+The design of the Bella Store website prioritises clarity, usability, and visual appeal, ensuring a seamless experience across devices. A responsive grid layout and Bootstrap framework are used to maintain consistent alignment and spacing, enhancing readability. Navigation elements, such as the main menu and category dropdown, are positioned prominently to facilitate easy browsing and product discovery. High-resolution product images and clear typography engage the user visually while conveying essential information effectively. Functionality and aesthetics are balanced throughout the design; interactive elements such as buttons and links provide immediate feedback.
 
 ## Brand Colours
 
-Bella Store implements a cohesive and purposeful colour palette that communicates elegance and professionalism appropriate for an online jewellery retailer. The dominant colours are dark-toned backgrounds paired with light text, which establish strong contrast and visual hierarchy, making key elements such as navigation text and call-to-action buttons easily legible. Warm accent colours, especially in interactive elements such as the search button, draw user attention to important actions and reinforce clickability without overwhelming the interface. The consistent application of brand colours across the navbar, buttons, and footer enhances overall visual unity and supports brand recognition. These colour choices promote a sense of luxury and reliability, aligning with user expectations for a premium shopping experience while maintaining functional clarity.
+Bella Store implements a cohesive colour palette that communicates elegance. The dominant colours are dark-toned backgrounds paired with light text, which establish strong contrast and visual hierarchy, making key elements such as navigation text and call-to-action buttons easily legible. Warm accent colours, especially in interactive elements such as the search button, draw user attention to important actions without overwhelming the interface. The consistent application of brand colours across the navbar, buttons, and footer supports brand recognition. These colour choices promote a sense of luxury and reliability, aligning with user expectations for a premium shopping experience.
 
 ## Layout and Structure of the Website
 
@@ -643,6 +643,84 @@ Cart functionality was implemented using a Test-Driven Development approach. Uni
 
 	Command used: python manage.py test
 	•	Result: Ran 3 tests ... OK
+
+## Test Failures Observed (TDD Notes)
+
+This section documents test failures encountered during TDD. Each test represents an expected behavior (“specification”) for the application. Failures indicate the implementation did not match the expected behavior at the time.
+
+---
+
+### Test: `test_cart_remove_product_deletes_item`
+
+**Location**
+- `store/tests/test_cart.py`
+- Test name: `CartTests.test_cart_remove_product_deletes_item`
+
+**Purpose**
+This test ensures that removing a product from the cart using the “remove product completely” endpoint will **delete the cart item entirely**, even if the cart item quantity is greater than 1.
+
+**Test Setup**
+- Creates a `Category` and a `Product`
+- Adds the same product to the cart twice to ensure `quantity == 2`
+- Calls the `cart_remove_product` view for that product
+
+**Expected Behavior**
+After calling the “remove product completely” endpoint:
+- The related `CartItem` should be deleted from the database.
+- `CartItem.objects.filter(product=product).exists()` should return `False`.
+
+**Failure Observed**
+The test failed because the `CartItem` still existed:
+- `AssertionError: True is not false`
+
+**What the Failure Indicates**
+At the time of failure, the `cart_remove_product` view was not removing the cart item completely. Common causes include:
+- The view decrementing quantity instead of deleting the `CartItem`
+- The view not targeting the correct cart/session item
+- The view not deleting the object at all
+
+**Passing Criteria**
+The test passes when `cart_remove_product` always deletes the matching `CartItem` regardless of its current quantity.
+
+---
+
+### Test: `test_footer_displays_current_year`
+
+**Location**
+- `store/tests/test_footer.py`
+- Test name: `FooterYearTests.test_footer_displays_current_year`
+
+**Purpose**
+This test ensures that the footer displays the **current year** dynamically (e.g., `© 2026 Bella-Store`).
+
+**Test Setup**
+- Gets the current year using `datetime.date.today().year`
+- Requests the Home page using `reverse("home")`
+
+**Expected Behavior**
+The rendered response HTML should contain:
+- `© <CURRENT_YEAR> Bella-Store`
+
+Example:
+- `© 2026 Bella-Store`
+
+**Failure Observed**
+The footer rendered without the year:
+- The response contained: `©  Bella-Store. All rights reserved.`
+- The expected year string was not found:
+  - `Couldn't find '© 2026 Bella-Store' in the response`
+
+**What the Failure Indicates**
+At the time of failure, the footer template was attempting to use a year variable that was not available in the template context (for example, using `{{ now|date:"Y" }}` without providing `now`).
+
+**Passing Criteria**
+The test passes when the footer reliably renders the current year, typically by using Django’s template tag:
+- `{% now "Y" %}`
+
+This approach does not require manually passing a `now` variable from views.
+
+---
+
 ## Functional Testing (User Story Coverage)
 
 ### Product Browsing & Discovery
@@ -713,6 +791,31 @@ Implementation is handled by passing an error message into `cart.html` and rende
 ---
 
 ✅ All functional user stories have been tested and passed successfully.
+
+# Technologies Used
+### HTML5
+Used for structuring the content of the web pages.
+
+### CSS3/ Javascript
+Used for styling the website
+
+### Bootstrap 5
+Used to create a responsive and mobile-friendly design. 
+
+### python
+
+### Git & GitHub
+GitHub Pages was used to deploy the website live at: https://iyeme-dev.github.io/home-staging/
+
+# Credits and Reference
+- Images sourced from [FreePik](https://freepik.com/)
+- Brand logo generated with [canva](https://canva.com/) 
+- Fonts from [Google Fonts](https://fonts.google.com/)
+- Icons from [Font Awesome](https://fontawesome.com/)
+
+# Author
+Iyeme Salubi
+
 
 
 
