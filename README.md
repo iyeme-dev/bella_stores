@@ -643,6 +643,84 @@ Cart functionality was implemented using a Test-Driven Development approach. Uni
 
 	Command used: python manage.py test
 	•	Result: Ran 3 tests ... OK
+
+## Test Failures Observed (TDD Notes)
+
+This section documents test failures encountered during TDD. Each test represents an expected behavior (“specification”) for the application. Failures indicate the implementation did not match the expected behavior at the time.
+
+---
+
+### Test: `test_cart_remove_product_deletes_item`
+
+**Location**
+- `store/tests/test_cart.py`
+- Test name: `CartTests.test_cart_remove_product_deletes_item`
+
+**Purpose**
+This test ensures that removing a product from the cart using the “remove product completely” endpoint will **delete the cart item entirely**, even if the cart item quantity is greater than 1.
+
+**Test Setup**
+- Creates a `Category` and a `Product`
+- Adds the same product to the cart twice to ensure `quantity == 2`
+- Calls the `cart_remove_product` view for that product
+
+**Expected Behavior**
+After calling the “remove product completely” endpoint:
+- The related `CartItem` should be deleted from the database.
+- `CartItem.objects.filter(product=product).exists()` should return `False`.
+
+**Failure Observed**
+The test failed because the `CartItem` still existed:
+- `AssertionError: True is not false`
+
+**What the Failure Indicates**
+At the time of failure, the `cart_remove_product` view was not removing the cart item completely. Common causes include:
+- The view decrementing quantity instead of deleting the `CartItem`
+- The view not targeting the correct cart/session item
+- The view not deleting the object at all
+
+**Passing Criteria**
+The test passes when `cart_remove_product` always deletes the matching `CartItem` regardless of its current quantity.
+
+---
+
+### Test: `test_footer_displays_current_year`
+
+**Location**
+- `store/tests/test_footer.py`
+- Test name: `FooterYearTests.test_footer_displays_current_year`
+
+**Purpose**
+This test ensures that the footer displays the **current year** dynamically (e.g., `© 2026 Bella-Store`).
+
+**Test Setup**
+- Gets the current year using `datetime.date.today().year`
+- Requests the Home page using `reverse("home")`
+
+**Expected Behavior**
+The rendered response HTML should contain:
+- `© <CURRENT_YEAR> Bella-Store`
+
+Example:
+- `© 2026 Bella-Store`
+
+**Failure Observed**
+The footer rendered without the year:
+- The response contained: `©  Bella-Store. All rights reserved.`
+- The expected year string was not found:
+  - `Couldn't find '© 2026 Bella-Store' in the response`
+
+**What the Failure Indicates**
+At the time of failure, the footer template was attempting to use a year variable that was not available in the template context (for example, using `{{ now|date:"Y" }}` without providing `now`).
+
+**Passing Criteria**
+The test passes when the footer reliably renders the current year, typically by using Django’s template tag:
+- `{% now "Y" %}`
+
+This approach does not require manually passing a `now` variable from views.
+
+---
+
 ## Functional Testing (User Story Coverage)
 
 ### Product Browsing & Discovery
@@ -713,6 +791,30 @@ Implementation is handled by passing an error message into `cart.html` and rende
 ---
 
 ✅ All functional user stories have been tested and passed successfully.
+
+# Technologies Used
+### HTML5
+Used for structuring the content of the web pages.
+
+### CSS3/ Javascript
+Used for styling the website
+
+### Bootstrap 5
+Used to create a responsive and mobile-friendly design. 
+
+### python
+
+### Git & GitHub
+GitHub Pages was used to deploy the website live at: https://iyeme-dev.github.io/home-staging/
+
+# Credits and Reference
+- Images sourced from [FreePik](https://freepik.com/)
+- Brand logo generated with [canva](https://canva.com/) 
+- Fonts from [Google Fonts](https://fonts.google.com/)
+- Icons from [Font Awesome](https://fontawesome.com/)
+
+# Author
+Iyeme Salubi
 
 
 
