@@ -55,3 +55,32 @@ class CartTests(TestCase):
         self.client.get(remove_product_url)
 
         self.assertFalse(CartItem.objects.filter(product=self.product).exists())
+
+class CartStockLimitTests(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(
+            name="Bracelets",
+            slug="bracelets",
+            description="Test category",
+        )
+        self.product = Product.objects.create(
+            name="Gold Bracelet",
+            slug="gold-bracelet",
+            description="Test product",
+            category=self.category,
+            price="29.00",
+            stock=1,          # IMPORTANT: only 1 in stock
+            available=True,
+        )
+
+    def test_add_cart_does_not_exceed_stock(self):
+        """
+        If stock is 1, adding twice should still keep quantity at 1.
+        """
+        add_url = reverse("add_cart", args=[self.product.id])
+
+        self.client.get(add_url)  # qty should become 1
+        self.client.get(add_url)  # should NOT become 2
+
+        cart_item = CartItem.objects.get(product=self.product)
+        self.assertEqual(cart_item.quantity, 1)
