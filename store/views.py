@@ -193,20 +193,28 @@ def signupView(request):
 def signinView(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
+
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(username=username, password=password)
+
             if user is not None:
                 login(request, user)
                 return redirect('home')
             else:
-                 messages.error(
+                messages.error(
                     request,
                     "Invalid username or password. Please try again."
                 )
+        else:
+            messages.error(
+                request,
+                "Invalid username or password. Please try again."
+            )
     else:
         form = AuthenticationForm()
+
     return render(request, 'signin.html', {'form': form})
 
 def signoutView(request):
