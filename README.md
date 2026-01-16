@@ -73,7 +73,7 @@ With the growth of e-commerce, customers increasingly expect fast, secure, and v
 
 ### Proposed Solution
 
-This project offers a responsive and user-friendly home staging website that is clear, helpful, and easy to navigate. It offers some features and functionalities that helps to offer solutions to the user stories.
+This project offers a responsive and user-friendly e-commerce website that is clear, helpful, and easy to navigate. It offers some features and functionalities that helps to offer solutions to the user stories.
 
 #### Key Features and Functionalities
 
@@ -132,23 +132,23 @@ Compared to many existing small-scale jewellery websites, Bella Stores offers a 
 
 ### Project Scope and Limitations
 
-The scope of this project focuses on core e-commerce functionality, including product browsing, cart management, secure checkout, and user accounts. While the site successfully supports essential shopping features, it does not currently include advanced functionalities such as wishlists, product recommendations, discount codes, or multi-currency support. The project is also limited to a single storefront without vendor management or inventory analytics.
+The scope of this project focuses on core e-commerce functionality, including product browsing, cart management, secure checkout, and user accounts. While the site successfully supports essential shopping features, it does not currently include advanced functionalities such as wishlists, product recommendations, discount codes, or multi-currency support. 
 
 ### Future Improvements
 
-Future enhancements could include user reviews and ratings, wishlist functionality, improved search and filtering options, email order confirmations, and promotional features such as discount codes. Additional improvements may also involve performance optimization, enhanced mobile UX, and expanded payment options to support a broader customer base.
+Future enhancements could include wishlist functionality, improved search and filtering options, and promotional features such as discount codes. Additional improvements may also involve performance optimization, enhanced mobile UX, and expanded payment options to support a broader customer base.
 
 ### Summary
 
-Bella Stores was developed to solve common online jewellery shopping challenges by offering a clean, secure, and intuitive e-commerce experience. Guided by user-centered design principles and real user stories, the project delivers clear product presentation, smooth navigation, and reliable checkout functionality. Overall, Bella Stores demonstrates how thoughtful design and robust backend implementation can significantly improve customer satisfaction and trust in online retail platforms.
+Bella Stores was developed to solve common online jewellery shopping challenges by offering a clean and secure e-commerce experience. Guided by user-centered design principles and real user stories, the project delivers clear product presentation, smooth navigation, and reliable checkout functionality. Overall, Bella Stores demonstrates how thoughtful design and robust backend implementation can significantly improve customer satisfaction and trust in online retail platforms.
 
 # Design
 
-The design of the Bella Store website prioritises clarity, usability, and visual appeal, ensuring a seamless experience across devices. A responsive grid layout and Bootstrap framework are used to maintain consistent alignment and spacing, enhancing readability and navigability. Navigation elements, such as the main menu and category dropdown, are positioned prominently to facilitate easy browsing and product discovery. High-resolution product images and clear typography engage the user visually while conveying essential information effectively. Functionality and aesthetics are balanced throughout the design; interactive elements such as buttons and links provide immediate feedback, while whitespace and structured sections reduce cognitive load. Overall, the site’s design fosters intuitive interaction, guiding users from initial exploration through to checkout with minimal friction.
+The design of the Bella Store website prioritises clarity, usability, and visual appeal, ensuring a seamless experience across devices. A responsive grid layout and Bootstrap framework are used to maintain consistent alignment and spacing, enhancing readability. Navigation elements, such as the main menu and category dropdown, are positioned prominently to facilitate easy browsing and product discovery. High-resolution product images and clear typography engage the user visually while conveying essential information effectively. Functionality and aesthetics are balanced throughout the design; interactive elements such as buttons and links provide immediate feedback.
 
 ## Brand Colours
 
-Bella Store implements a cohesive and purposeful colour palette that communicates elegance and professionalism appropriate for an online jewellery retailer. The dominant colours are dark-toned backgrounds paired with light text, which establish strong contrast and visual hierarchy, making key elements such as navigation text and call-to-action buttons easily legible. Warm accent colours, especially in interactive elements such as the search button, draw user attention to important actions and reinforce clickability without overwhelming the interface. The consistent application of brand colours across the navbar, buttons, and footer enhances overall visual unity and supports brand recognition. These colour choices promote a sense of luxury and reliability, aligning with user expectations for a premium shopping experience while maintaining functional clarity.
+Bella Store implements a cohesive colour palette that communicates elegance. The dominant colours are dark-toned backgrounds paired with light text, which establish strong contrast and visual hierarchy, making key elements such as navigation text and call-to-action buttons easily legible. Warm accent colours, especially in interactive elements such as the search button, draw user attention to important actions without overwhelming the interface. The consistent application of brand colours across the navbar, buttons, and footer supports brand recognition. These colour choices promote a sense of luxury and reliability, aligning with user expectations for a premium shopping experience.
 
 ## Layout and Structure of the Website
 
@@ -815,6 +815,7 @@ GitHub Pages was used to deploy the website live at: https://iyeme-dev.github.io
 
 # Author
 Iyeme Salubi
+
 
 
 
