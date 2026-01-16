@@ -28,7 +28,7 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "DEVELOPMENT" in os.environ
+DEBUG = os.environ.get("DEBUG", "False").strip().lower() in ("true", "1", "yes")
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "bella-store-1b93e73638e2.herokuapp.com"]
 
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'bella_stores.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
