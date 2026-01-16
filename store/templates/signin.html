@@ -29,6 +29,14 @@ Sign in
           <h2 class="product_title">
             Registered Customers Only
           </h2>
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-danger" role="alert">
+                 {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          
           <form method="post">
             {% csrf_token %}
             <p>{{ form | crispy }}</p>
