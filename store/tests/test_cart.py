@@ -84,3 +84,5 @@ class CartStockLimitTests(TestCase):
 
         cart_item = CartItem.objects.get(product=self.product)
         self.assertEqual(cart_item.quantity, 1)
+
+     
