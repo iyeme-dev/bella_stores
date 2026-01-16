@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from .models import ContactMessage
+from django.contrib import messages
 
 def home(request, category_slug=None):
     category_page = None
@@ -200,7 +201,10 @@ def signinView(request):
                 login(request, user)
                 return redirect('home')
             else:
-                return redirect('signup')
+                 messages.error(
+                    request,
+                    "Invalid username or password. Please try again."
+                )
     else:
         form = AuthenticationForm()
     return render(request, 'signin.html', {'form': form})
