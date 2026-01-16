@@ -275,13 +275,15 @@ This supports both new and returning users, addressing:
 ---
 
 ### Order History and Order Detail Pages
-![Order Confirmation Page](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/order_%20confirmation.jpg)
+![Order Confirmation Page](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/order_history.jpg)
 
 Authenticated users can access an **Order History page** listing previous purchases.  
 Each order links to a detailed view showing:
 - Purchased items
 - Quantities and prices
 - Billing and shipping information
+
+![Order Confirmation Page](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/order_detail.jpg)
 
 This enables users to track and review past orders efficiently.
 
@@ -644,7 +646,7 @@ Cart functionality was implemented using a Test-Driven Development approach. Uni
 	Command used: python manage.py test
 	•	Result: Ran 3 tests ... OK
 
-## Test Failures Observed (TDD Notes)
+#### Test Failures Observed (TDD Notes)
 
 This section documents test failures encountered during TDD. Each test represents an expected behavior (“specification”) for the application. Failures indicate the implementation did not match the expected behavior at the time.
 
@@ -697,7 +699,7 @@ This test ensures that the footer displays the **current year** dynamically (e.g
 - Gets the current year using `datetime.date.today().year`
 - Requests the Home page using `reverse("home")`
 
-**Expected Behavior**
+**Expected Behaviour**
 The rendered response HTML should contain:
 - `© <CURRENT_YEAR> Bella-Store`
 
@@ -720,6 +722,52 @@ The test passes when the footer reliably renders the current year, typically by 
 This approach does not require manually passing a `now` variable from views.
 
 ---
+
+### Test: Authentication Error Handling 
+
+#### Feature Tested
+
+**User login feedback when incorrect credentials are submitted.**
+
+This test ensures that users receive a clear and helpful error message when attempting to sign in with invalid login details, improving usability and accessibility.
+
+---
+
+#### Bug Identified
+
+When incorrect login credentials were submitted:
+
+- The `AuthenticationForm` failed validation  
+- The user remained on the sign-in page  
+- No custom error message was displayed  
+- Users only saw Django’s default validation output  
+
+This behaviour did not meet the project requirement for meaningful user feedback.
+
+---
+
+#### Failing Test (Red Phase)
+
+A failing test was written before modifying the view
+The test initially failed, confirming that the expected behaviour was missing.
+
+#### Fix Implemented (Green Phase)
+
+The signinView was updated to add a custom error message whenever authentication fails.
+
+#### Passing Test (Refactor Phase)
+
+After applying the fix, the test passed successfully:
+
+python manage.py test store.tests.test_auth
+
+
+#### This confirms:
+
+- Users now receive clear feedback for failed login attempts
+
+- Authentication behaviour is consistent and predictable
+
 
 ## Functional Testing (User Story Coverage)
 
@@ -815,6 +863,7 @@ GitHub Pages was used to deploy the website live at: https://iyeme-dev.github.io
 
 # Author
 Iyeme Salubi
+
 
 
 
