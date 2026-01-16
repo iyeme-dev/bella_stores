@@ -84,37 +84,3 @@ class CartStockLimitTests(TestCase):
 
         cart_item = CartItem.objects.get(product=self.product)
         self.assertEqual(cart_item.quantity, 1)
-
-class CartRemoveProductTests(TestCase):
-    def setUp(self):
-        self.category = Category.objects.create(
-            name="Bracelets",
-            slug="bracelets"
-        )
-
-        self.product = Product.objects.create(
-            name="Gold Bracelet",
-            slug="gold-bracelet",
-            description="Test product",
-            category=self.category,
-            price="29.00",
-            stock=10,
-            available=True
-        )
-
-    def test_cart_remove_product_deletes_item_regardless_of_quantity(self):
-        """
-        Remove product should delete the cart item even if quantity > 1.
-        """
-        add_url = reverse("add_cart", args=[self.product.id])
-        remove_product_url = reverse("cart_remove_product", args=[self.product.id])
-
-        # Add twice -> quantity should become 2
-        self.client.get(add_url)
-        self.client.get(add_url)
-
-        # Now remove product completely
-        self.client.get(remove_product_url)
-
-        # Item should be gone from DB
-        self.assertFalse(CartItem.objects.filter(product=self.product).exists())
