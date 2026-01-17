@@ -274,7 +274,7 @@ def contact(request):
             # Save to DB
             ContactMessage.objects.create(
                 name=form.cleaned_data["name"],
-                email=form.cleaned_data["email"],
+                email=form.cleaned_data["from_email"],
                 subject=form.cleaned_data["subject"],
                 message=form.cleaned_data["message"],
             )
