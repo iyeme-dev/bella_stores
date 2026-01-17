@@ -289,6 +289,12 @@ This enables users to track and review past orders efficiently.
 
 ---
 
+### Contact Form
+![Contact Form](https://github.com/iyeme-dev/bella_stores/blob/main/store/static/image/contact_form.jpg)
+The Contact page includes a user-friendly contact form that allows visitors to send enquiries directly to the store. Users are required to provide their name, email address, subject, and message. The form is fully validated using Django forms to ensure accurate input, and all submitted messages are securely saved to the database for later review. This feature improves communication, reliability, and overall user experience.
+
+---
+
 ### Summary
 
 Overall, the site layout follows a clear user journey:
@@ -863,6 +869,7 @@ GitHub Pages was used to deploy the website live at: https://iyeme-dev.github.io
 
 # Author
 Iyeme Salubi
+
 
 
 
